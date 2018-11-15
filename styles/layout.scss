@@ -1,7 +1,25 @@
-body {
-  background-color: #EEE;
+html {
+  box-sizing: border-box;
+}
 
-  h1 {
-    color: #244751;
-  }
+*,
+*:before,
+*:after {
+  box-sizing: inherit;
+}
+
+body {
+  margin: 0;
+  background-color: #EEE;
+}
+
+#map {
+  width: 500px;
+  height: 500px;
+}
+
+#pac-input {
+  width: 200px;
+  font-size: 16px;
+  text-overflow: ellipsis;
 }
