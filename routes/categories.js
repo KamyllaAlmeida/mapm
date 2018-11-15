@@ -9,8 +9,8 @@ module.exports = function(DataHelpers) {
     router.get("/", (req, res) => {
         DataHelpers.getCategories((results) => {
             res.json(results);
-        }); 
-    }); 
+        });
+    });
 
     //After select a Category show this page
     router.get("/:id", (req, res) => {

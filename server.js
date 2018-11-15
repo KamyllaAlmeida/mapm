@@ -56,7 +56,6 @@ app.use("/api/categories", categoriesRoutes(DataHelpers));
 
 // Home page
 app.get("/", (req, res) => {
-  console.log(req.userAuthenticated);
   res.render("index");
 });
 
