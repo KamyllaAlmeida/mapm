@@ -8,12 +8,14 @@ const express     = require("express");
 const bodyParser  = require("body-parser");
 const sass        = require("node-sass-middleware");
 const app         = express();
+const cookieSession = require("cookie-session");
 
 const knexConfig  = require("./knexfile");
 const knex        = require("knex")(knexConfig[ENV]);
 const morgan      = require('morgan');
 const knexLogger  = require('knex-logger');
 const DataHelpers = require("./lib/data_helpers.js")(knex);
+
 
 // Seperated Routes for each Resource
 const usersRoutes = require("./routes/users");
@@ -22,11 +24,18 @@ const loginRoutes = require("./routes/login");
 
 // Load the logger first so all (static) HTTP requests are logged to STDOUT
 // 'dev' = Concise output colored by response status for development use.
-//         The :status token will be colored red for server error codes, yellow for client error codes, cyan for redirection codes, and uncolored for all other codes.
+//         The :status token will be colored red for server error codes, yellow
+//         for client error codes, cyan for redirection codes, and uncolored
+//         for all other codes.
 app.use(morgan('dev'));
 
 // Log knex SQL queries to STDOUT as well
 app.use(knexLogger(knex));
+
+app.use(cookieSession({
+  name: 'session',
+  keys: ['test1', 'test2']
+}));
 
 app.set("view engine", "ejs");
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -38,6 +47,8 @@ app.use("/styles", sass({
 }));
 app.use(express.static("public"));
 
+app.use(isAuthenticated);
+
 // Mount all resource routes
 app.use("/api/users", usersRoutes(DataHelpers));
 app.use("/api/login", loginRoutes(DataHelpers));
@@ -45,9 +56,16 @@ app.use("/api/categories", categoriesRoutes(DataHelpers));
 
 // Home page
 app.get("/", (req, res) => {
+  console.log(req.userAuthenticated);
   res.render("index");
 });
 
 app.listen(PORT, () => {
   console.log("Example app listening on port " + PORT);
 });
+
+// Returns a boolean as to whether the user is logged in or not.
+function isAuthenticated(req, res, next) {
+  req.userAuthenticated = req.session.user_id ? 'true' : 'false';
+  next();
+}
