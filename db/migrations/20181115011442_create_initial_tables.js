@@ -6,7 +6,7 @@ exports.up = function(knex, Promise) {
       table.string('password');
     }),
     knex.schema.createTable('categories', function(table) {
-      table.increments();
+      table.increments().('id');
       table.string('name');
       table.string('description');
     }),

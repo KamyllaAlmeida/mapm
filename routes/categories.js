@@ -19,27 +19,43 @@ module.exports = function(DataHelpers) {
       });
     });
 
-    //Testing route
+    //
     router.get("/", (req, res) => {
         DataHelpers.getCategories((results) => {
             res.json(results);
         });
     });
 
-    //After select a Category show this page
-    router.get("/:id", (req, res) => {
-        let id = req.params.id;
-        res.json({"id":id});
-    });
-
     //New Category Page
     router.get("/new", (req, res) => {
-        res.json({1:1});
+        res.render("edit-new");
+        //res.json({1:1});
     });
 
     //Saving New Category
     router.post("/", (req, res) => {
-        res.json({2:2});
+        let image = req.body.image;
+
+        let category =  {
+            name : req.body.title,
+            description: req.body.description,
+            //image : req.body.image
+        }
+
+        DataHelpers.addCategory((category) => {
+            res.json(category);
+        });
+
+        res.redirect("/api/categories");
+
+        //console.log("Deu certo");
+
+    });
+
+    //After select a Category show this page
+    router.get("/:id", (req, res) => {
+        let id = req.params.id;
+        res.json({"id":id});
     });
 
     //Like category
