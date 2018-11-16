@@ -1,6 +1,12 @@
 <h1>Welcome to MAPM!</h1>
 
-<input id="pac-input" class="controls" type="text" placeholder="Search Box">
+<input id="pac-input" class="controls" type="text" placeholder="Enter a location">
 <div id="map"></div>
+<div id="infowindow-content">
+  <img id="place-photo" src="" />
+  <span id="place-name"></span>
+  <span id="place-description"></span>
+</div>
+
 <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAGiyfQAupniAUhTnX7tFciijiuW8Oi9W0&callback=initMap&libraries=places">
 </script>

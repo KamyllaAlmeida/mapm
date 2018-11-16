@@ -1,0 +1,20 @@
+// Google Maps Info Window
+#infowindow-content {
+  width: 100%;
+}
+
+#place-photo {
+  float: left;
+  margin-right: $space-x-small;
+}
+
+#place-name {
+  display: block;
+  margin-bottom: $space-x-small;
+  font-size: $font-body-size;
+}
+
+#place-description {
+  display: block;
+  font-size: $font-body-size;
+}
