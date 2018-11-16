@@ -14,6 +14,7 @@ module.exports = function (DataHelpers) {
 
   //Display users profile
   router.get("/:id", (req, res) => {
+    //TODO: These can run concurrently using a callback counter.
     let userId = req.params.id;
     DataHelpers.getUserById(userId, (userResults) => {
       let userInfo = userResults;
@@ -21,12 +22,10 @@ module.exports = function (DataHelpers) {
         let contributesInfo = contributesResults;
         DataHelpers.getLikes(userId, (likesResults) => {
           let likesInfo = likesResults;
-          res.json({user: userInfo, likes: likesInfo, contributes: contributesInfo});
+          res.render('users', {user: userInfo, likes: likesInfo, contributes: contributesInfo});
         });
       });
     });
-      // res.render('users', {results[0]);
-    // });
   });
 
   //Save user
