@@ -10,6 +10,7 @@ const bodyParser  = require("body-parser");
 const sass        = require("node-sass-middleware");
 const app         = express();
 const cookieSession = require("cookie-session");
+const methodOverride = require("method-override");
 
 const knexConfig  = require("./knexfile");
 const knex        = require("knex")(knexConfig[ENV]);
@@ -33,6 +34,10 @@ app.use(morgan('dev'));
 // Log knex SQL queries to STDOUT as well
 app.use(knexLogger(knex));
 
+// Method Override
+app.use(methodOverride('_method'));
+
+// Initialize session cookies with dummie crypt and decrypt keys
 app.use(cookieSession({
   name: 'session',
   keys: ['test1', 'test2']

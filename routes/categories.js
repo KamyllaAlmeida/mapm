@@ -74,7 +74,7 @@ module.exports = function(DataHelpers) {
 
     //update category
     router.put('/:id/edit', (req, res) => {
-      res.json({'id': id});
+      res.json({'id': req.params.id});
     });
 
   return router;
