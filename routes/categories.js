@@ -3,7 +3,7 @@
 const express = require('express');
 const router  = express.Router();
 
-module.exports = function(DataHelpers) {
+module.exports = function (DataHelpers) {
 
   // Get all categories.
   router.get('/', (req, res) => {
@@ -36,19 +36,20 @@ module.exports = function(DataHelpers) {
 
     //Saving New Category
     router.post('/', (req, res) => {
-      let image = req.body.image;
+      let image = 'image';
 
       let category =  {
         name : req.body.title,
         description: req.body.description,
-        //image : req.body.image
+        image : image
       };
 
-      DataHelpers.addCategory((category) => {
-        res.json(category);
+      DataHelpers.addCategory(category, (results) => {
+        res.json(results);
+
+        res.redirect('/api/categories');
       });
 
-      res.redirect('/api/categories');
     });
 
     //After select a Category show this page

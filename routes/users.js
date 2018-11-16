@@ -3,18 +3,30 @@
 const express = require('express');
 const router  = express.Router();
 
-module.exports = (DataHelpers) => {
+module.exports = function (DataHelpers) {
 
   //Example page
   router.get("/", (req, res) => {
     DataHelpers.getUsers((results) => {
         res.json(results);
     });
-  }); 
+  });
 
   //Display users profile
   router.get("/:id", (req, res) => {
-    res.json({1:1});
+    let userId = req.params.id;
+    DataHelpers.getUserById(userId, (userResults) => {
+      let userInfo = userResults;
+      DataHelpers.getContributes(userId, (contributesResults) => {
+        let contributesInfo = contributesResults;
+        DataHelpers.getLikes(userId, (likesResults) => {
+          let likesInfo = likesResults;
+          res.json({user: userInfo, likes: likesInfo, contributes: contributesInfo});
+        });
+      });
+    });
+      // res.render('users', {results[0]);
+    // });
   });
 
   //Save user
