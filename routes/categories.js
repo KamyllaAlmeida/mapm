@@ -12,21 +12,6 @@ module.exports = function (DataHelpers) {
     });
   });
 
-  // After select a Category show this page
-  router.get('/:id', (req, res) => {
-    let categoryId = req.params.id;
-    let categoryData, pointData;
-
-    DataHelpers.getCategoryByID(categoryId, (results) => {
-      let categoryData = results;
-
-      DataHelpers.getPoints(categoryId, (results) => {
-        let pointData = results;
-
-        res.json({category_data: categoryData, point_data: pointData});
-      });
-    });
-  });
 
   //New Category Page
   router.get('/new', (req, res) => {
@@ -34,29 +19,42 @@ module.exports = function (DataHelpers) {
     //res.json({1:1});
   });
 
-    //Saving New Category
-    router.post('/', (req, res) => {
-      let image = 'image';
+  //Saving New Category
+  router.post('/', (req, res) => {
+    // I need to implement a function to save the image.
 
-      let category =  {
-        name : req.body.title,
-        description: req.body.description,
-        image : image
-      };
+    let category =  {
+      name : req.body.title,
+      description: req.body.description,
+      image : req.body.image
+    };
 
-      DataHelpers.addCategory(category, (results) => {
-        res.json(results);
+    DataHelpers.addCategory(category, (results) => {
+      //res.json(results);
+      res.redirect(`/api/categories/${results}`);
+    });
+  });
 
-        res.redirect('/api/categories');
+  // After select a Category show this page
+  router.get('/:id', (req, res) => {
+    let categoryId = req.params.id;
+
+    DataHelpers.getCategoryByID(categoryId, (results) => {
+      let categoryData = results;
+
+      DataHelpers.getPoints(categoryId, (results) => {
+        let pointData = results;
+
+        let templateVars = {
+          category_data: categoryData, 
+          point_data: pointData
+        }        
+        //res.json({category_data: categoryData, point_data: pointData});
+        res.render('edit-new', templateVars);
       });
-
     });
+  });
 
-    //After select a Category show this page
-    router.get('/:id', (req, res) => {
-      let id = req.params.id;
-      res.json({'id': id});
-    });
 
     //Like category
     router.put('/:id/like', (req, res) => {

@@ -1,20 +1,28 @@
+{{> map}}
+
+
 <form method="POST" action="/api/categories/">
    <div class="form-group">
     <label for="formGroupExampleInput">Name</label>
-    <input type="text" class="form-control" name ="title" >
+    <input type="text" class="form-control" name ="title" value="{{category_data.0.name}}"  >
   </div>
   <div class="form-group">
     <label for="formGroupExampleInput2">Description</label>
-    <input type="text" class="form-control" name="description">
+    <input type="text" class="form-control" name="description" value="{{category_data.0.description}}">
   </div>
-  <div class="custom-file">
-    <label for="formGroupExampleInput3">Image</label>
+  <div>
+     <label for="formGroupExampleInput3">Image</label>
+     <input type="text" class="form-control" name="image" value="{{category_data.0.image}}">
+  </div>
+  <!--<div class="custom-file">
     <input type="file" class="custom-file-input" id="validatedCustomFile" required>
     <label class="custom-file-label" for="validatedCustomFile">Choose file...</label>
     <div class="invalid-feedback">Example invalid custom file feedback</div>  
-  </div>    
-  <button type="submit" class="btn btn-primary">Submit</button>
+  </div>-->  
+  <button type="submit" class="btn btn-primary">Save</button>
 </form>
+
+
 
 
 
