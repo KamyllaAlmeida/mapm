@@ -5,6 +5,20 @@ const router  = express.Router();
 
 module.exports = function(DataHelpers) {
 
+    router.get("/test", (req, res) => {
+      let newUser =
+      {
+        name: 'Adam',
+        username: 'adam',
+        password: 'password'
+      };
+
+      DataHelpers.addUser(newUser, (results) => {
+        console.log(results);
+        res.redirect('/');
+      });
+    });
+
     //Testing route
     router.get("/", (req, res) => {
         DataHelpers.getCategories((results) => {
