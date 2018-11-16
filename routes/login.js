@@ -12,7 +12,8 @@ module.exports = function(DataHelpers) {
 
     //For logging in authenticated user
     router.get("/:id", (req, res) => {
-        res.json({2:2});
+        req.session.user_id = req.params.id;
+        res.redirect('/');
     });
 
   return router;

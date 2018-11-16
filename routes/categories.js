@@ -58,7 +58,16 @@ module.exports = function(DataHelpers) {
 
     //Like category
     router.put("/:id/like", (req, res) => {
-
+      if (req.userAuthenticated) {
+        let userId = req.session.user_id;
+        let categoryId = req.params.id;
+        DataHelpers.toggleLike(userId, categoryId, (results) => {
+          console.log(results);
+          res.redirect('/');
+        });
+      } else {
+        res.redirect('/');
+      }
     });
 
     //update category
