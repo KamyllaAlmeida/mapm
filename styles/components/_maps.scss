@@ -1,4 +1,20 @@
+// Google Maps and Places search input
+
+#map {
+  height: 500px;
+  visibility: hidden;
+}
+
+#pac-input {
+  display: none;
+  width: 100%;
+  margin: $space-small 0;
+  font-size: $font-body-size;
+  text-overflow: ellipsis;
+}
+
 // Google Maps Info Window
+
 #infowindow-content {
   width: 100%;
 }

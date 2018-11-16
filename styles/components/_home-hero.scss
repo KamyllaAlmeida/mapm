@@ -1,0 +1,24 @@
+.home-hero--image {
+  position: relative;
+  min-height: 400px;
+  background: transparent;
+}
+
+.home-hero--message {
+  height: 420px;
+  padding: $space-x-large;
+  background: rgba($color-white, 0.8);
+
+  @include media($min: $bp-small) {
+    @include centerer;
+    height: auto;
+  }
+
+  h1 {
+    text-align: center;
+
+    @include media($min: $bp-small) {
+      margin-top: 0;
+    }
+  }
+}
