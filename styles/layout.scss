@@ -1,25 +1,8 @@
-html {
-  box-sizing: border-box;
-}
+// Internal libraries
+@import "lib/_settings";
+@import "lib/mixins";
 
-*,
-*:before,
-*:after {
-  box-sizing: inherit;
-}
-
-body {
-  margin: 0;
-  background-color: #EEE;
-}
-
-#map {
-  width: 500px;
-  height: 500px;
-}
-
-#pac-input {
-  width: 200px;
-  font-size: 16px;
-  text-overflow: ellipsis;
-}
+// Global styles
+@import "layout/_body";
+@import "layout/_header";
+@import "layout/_footer";

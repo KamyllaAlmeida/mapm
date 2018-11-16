@@ -1,0 +1,22 @@
+body {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  min-height: 100vh;
+  font-size: $font-body-size;
+}
+
+.site-main {
+  flex: 1 0 auto;
+}
+
+#map {
+  max-width: 500px;
+  height: 500px;
+}
+
+#pac-input {
+  width: 200px;
+  font-size: $font-body-size;
+  text-overflow: ellipsis;
+}

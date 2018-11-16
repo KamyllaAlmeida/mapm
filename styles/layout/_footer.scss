@@ -1,0 +1,11 @@
+/* Sticky footer styles
+-------------------------------------------------- */
+.footer {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+  width: 100%;
+  height: 40px;
+  background-color: $color-lighter-gray;
+  border-top: 1px solid $color-light-gray;
+}
