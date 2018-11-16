@@ -10,20 +10,17 @@ $(() => {
   });
 });
 
-
 // Initialize Google Maps API map
-function initMap() {
+function initGoogleMaps() {
   const map = new google.maps.Map(document.getElementById('map'), {
     center: {lat: 49.283832198, lng: -123.119332856},
     zoom: 15
   });
 
-  const input = document.getElementById('pac-input');
+  const searchInput = document.getElementById('pac-input');
 
-  let autocomplete = new google.maps.places.Autocomplete(input);
+  let autocomplete = new google.maps.places.Autocomplete(searchInput);
   autocomplete.bindTo('bounds', map);
-
-  map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
 
   let infowindow = new google.maps.InfoWindow();
   let infowindowContent = document.getElementById('infowindow-content');
@@ -70,4 +67,21 @@ function initMap() {
     infowindowContent.children['place-description'].textContent = place.formatted_address;
     infowindow.open(map, marker);
   });
+
+  // Show map and search input after last event is loaded (tilesloaded)
+  google.maps.event.addListenerOnce(map, 'tilesloaded', function() {
+    document.getElementById('map').style.visibility = 'visible';
+    document.getElementById('pac-input').style.display = 'block';
+  });
 }
+
+$(document).ready(() => {
+  $('.home-hero--image').parallax({
+    imageSrc: '/images/home-hero-image.jpeg',
+    naturalWidth: 960,
+    naturalHeight: 627,
+    speed: 0.5,
+  });
+
+  initGoogleMaps();
+});

@@ -9,15 +9,44 @@ body {
 
 .site-main {
   flex: 1 0 auto;
+  margin-top: $space-xx-large;
+  margin-bottom: $space-xx-large;
 }
 
 #map {
-  max-width: 500px;
   height: 500px;
+  visibility: hidden;
 }
 
 #pac-input {
-  width: 200px;
+  display: none;
+  width: 100%;
+  margin-bottom: $space-small;
   font-size: $font-body-size;
   text-overflow: ellipsis;
+}
+
+.home-hero--image {
+  position: relative;
+  min-height: 400px;
+  background: transparent;
+}
+
+.home-hero--message {
+  height: 420px;
+  padding: $space-x-large;
+  background: rgba($color-white, 0.8);
+
+  @include media($min: $bp-small) {
+    @include centerer;
+    height: auto;
+  }
+
+  h1 {
+    text-align: center;
+
+    @include media($min: $bp-small) {
+      margin-top: 0;
+    }
+  }
 }

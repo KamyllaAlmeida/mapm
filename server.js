@@ -62,8 +62,10 @@ app.use("/api/login", loginRoutes(DataHelpers));
 app.use("/api/categories", categoriesRoutes(DataHelpers));
 
 // Home page
-app.get("/", (req, res) => {
-  res.render("index");
+app.get('/', (req, res) => {
+  res.render('index', {
+    showHeroImage: true,
+  });
 });
 
 app.listen(PORT, () => {
