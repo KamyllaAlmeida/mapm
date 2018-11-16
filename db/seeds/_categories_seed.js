@@ -11,15 +11,18 @@ exports.seed = function(knex, Promise) {
         knex('categories').insert({
           id: 1,
           name: 'sushi restaurants',
-          description: 'Favorite sushi restaurants in Vancouver.'}),
+          description: 'Favorite sushi restaurants in Vancouver.',
+          image: 'https://placekitten.com/408/287'}),
         knex('categories').insert({
           id: 2,
           name: 'pizza restaurants',
-          description: 'Favorite pizza restaurants in Vancouver.'}),
+          description: 'Favorite pizza restaurants in Vancouver.',
+          image: 'https://placekitten.com/200/287'}),
         knex('categories').insert({
           id: 3,
           name: 'indian restaurants',
-          description: 'Favorite Indian restaurants in Vancouver.'}),
+          description: 'Favorite Indian restaurants in Vancouver.',
+          image: 'https://placekitten.com/200/287'}),
       ]);
     });
 };
