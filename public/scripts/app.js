@@ -59,7 +59,13 @@ function initMap() {
 
     marker.setVisible(true);
 
-    infowindowContent.children['place-photo'].src = place.photos[0].getUrl({ 'maxWidth': 100, 'maxHeight': 100 });
+    // If place has photos, load first one; if it doesn't, load placeholder image
+    if (place.photos !== undefined) {
+      infowindowContent.children['place-photo'].src = place.photos[0].getUrl({ 'maxWidth': 100, 'maxHeight': 100 });
+    } else {
+      infowindowContent.children['place-photo'].src = '/map-image-placeholder.png';
+    }
+
     infowindowContent.children['place-name'].textContent = place.name;
     infowindowContent.children['place-description'].textContent = place.formatted_address;
     infowindow.open(map, marker);

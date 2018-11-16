@@ -5,6 +5,8 @@
 
 #place-photo {
   float: left;
+  max-width: 100px;
+  max-height: 75px;
   margin-right: $space-x-small;
 }
 
@@ -12,9 +14,10 @@
   display: block;
   margin-bottom: $space-x-small;
   font-size: $font-body-size;
+  font-weight: 500;
 }
 
 #place-description {
   display: block;
-  font-size: $font-body-size;
+  font-size: $font-body-size-smaller;
 }
