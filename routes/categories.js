@@ -5,25 +5,23 @@ const router  = express.Router();
 
 module.exports = function(DataHelpers) {
 
-    router.get("/test", (req, res) => {
-      let newUser =
-      {
-        name: 'Adam',
-        username: 'adam',
-        password: 'password'
-      };
-
-      DataHelpers.addUser(newUser, (results) => {
-        console.log(results);
-        res.redirect('/');
-      });
-    });
-
-    //
+    // Get all categories.
     router.get("/", (req, res) => {
         DataHelpers.getCategories((results) => {
             res.json(results);
         });
+
+     // After select a Category show this page
+    router.get("/:id", (req, res) => {
+        let categoryId = req.params.id;
+        let categoryData, pointData;
+          DataHelpers.getCategoryByID(categoryId, (results) => {
+            let categoryData = results;
+            DataHelpers.getPoints(categoryId, (results) => {
+              let pointData = results;
+              res.json({category_data: categoryData, point_data: pointData});
+            });
+          });
     });
 
     //New Category Page
@@ -60,8 +58,7 @@ module.exports = function(DataHelpers) {
 
     //Like category
     router.put("/:id/like", (req, res) => {
-        let id = req.params.id;
-        res.json({"id":id});
+
     });
 
     //update category
