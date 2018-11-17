@@ -5,6 +5,15 @@ const router  = express.Router();
 
 module.exports = function (DataHelpers) {
 
+  //TESTING delete points test
+  router.post('/delete/test/:id', (req, res) => {
+    let pointId = req.body.test;
+    console.log(pointId);
+    //DataHelpers.deletePoint(pointId, (results) => {
+      //console.log(results);
+    //})        
+  });
+
   // Get all categories.
   router.get('/', (req, res) => {
     DataHelpers.getCategories((results) => {

@@ -19,8 +19,27 @@
     <label class="custom-file-label" for="validatedCustomFile">Choose file...</label>
     <div class="invalid-feedback">Example invalid custom file feedback</div>  
   </div>-->  
-  <button type="submit" class="btn btn-primary">Save</button>
+ <button type="submit" class="btn btn-primary">Save</button>
+  
 </form>
+
+
+  <h4>List of points</h4>
+
+  <ul class="list-group">
+    {{#each point_data}}
+  
+
+    <li class="list-group-item d-flex justify-content-between align-items-center" name ="test">
+      {{this.title}}
+      <form method="POST" action ="/api/categories/delete/test/{{this.id}}">
+      <button class="btn btn-primary" type="submit">Delete</button>
+      </form>
+    </li>
+    {{/each}}
+  </ul>
+  
+ 
 
 
 
