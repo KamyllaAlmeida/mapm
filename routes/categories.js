@@ -49,6 +49,9 @@ module.exports = function (DataHelpers) {
       image: req.body.image
     };
 
+    // For displaying map points, will have to change to submit to server
+    console.log(req.body);
+
     DataHelpers.addCategory(category, (results) => {
       //res.json(results);
       res.redirect(`/api/categories/${results}/edit`);
@@ -71,42 +74,6 @@ module.exports = function (DataHelpers) {
         };
 
         res.render('categories', templateVars);
-      });
-    });
-  });
-
-  // Like category
-  router.put('/:id/like', (req, res) => {
-    if (req.userAuthenticated) {
-      let userId = req.session.user_id;
-      let categoryId = req.params.id;
-
-      DataHelpers.toggleLike(userId, categoryId, (results) => {
-        console.log(results);
-        res.redirect('/');
-      });
-    } else {
-      res.redirect('/');
-    }
-  });
-
-  // Edit category
-  router.get('/:id/edit', (req, res) => {
-    let categoryId = req.params.id;
-
-    DataHelpers.getCategoryByID(categoryId, (results) => {
-      let categoryData = results;
-
-      DataHelpers.getPoints(categoryId, (results) => {
-        let pointData = results;
-
-        let templateVars = {
-          category_data: categoryData[0],
-          point_data: pointData
-        };
-
-        //res.json({category_data: categoryData, point_data: pointData});
-        res.render('edit-new', templateVars);
       });
     });
   });
