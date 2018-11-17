@@ -83,7 +83,6 @@ var points = [
 
 
 
-
 /////////
   const searchInput = document.getElementById('pac-input');
 
