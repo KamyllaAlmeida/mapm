@@ -5,6 +5,7 @@ const router  = express.Router();
 
 module.exports = function (DataHelpers) {
 
+  //TODO: Delete this route before production.
   //Example page
   router.get("/", (req, res) => {
     DataHelpers.getUsers((results) => {
@@ -14,7 +15,7 @@ module.exports = function (DataHelpers) {
 
   //Display users profile
   router.get("/:id", (req, res) => {
-    //TODO: These can run concurrently using a callback counter.
+    //TODO: These can run concurrently using a callback control flow
     let userId = req.params.id;
     DataHelpers.getUserById(userId, (userResults) => {
       let userInfo = userResults;
@@ -28,12 +29,15 @@ module.exports = function (DataHelpers) {
     });
   });
 
+  //TODO: Both of these routes can probably be deleted since we are not
+  //      registering users.
+
   //Save user
   router.post("/", (req, res) => {
     res.json({2:2});
   });
 
-  //New user
+  // New user
   router.get("/register", (req, res) => {
     res.json({3:3});
   });

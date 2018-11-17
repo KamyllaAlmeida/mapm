@@ -11,8 +11,16 @@ module.exports = function (DataHelpers) {
     let pointId = req.params.id;
     DataHelpers.deletePoint(pointId, (results) => {
       console.log(results);
-    }) 
-    res.redirect(`/api/categories/${categoryId}/edit`);        
+    })
+    res.redirect(`/api/categories/${categoryId}/edit`);
+
+  //TESTING delete points test
+  router.post('/delete/test/:id', (req, res) => {
+    let pointId = req.body.test;
+    console.log(pointId);
+    //DataHelpers.deletePoint(pointId, (results) => {
+      //console.log(results);
+    //})
   });
 
   // Get all categories.
@@ -56,11 +64,10 @@ module.exports = function (DataHelpers) {
         let pointData = results;
 
         let templateVars = {
-          category_data: categoryData[0], 
+          category_data: categoryData[0],
           point_data: pointData
-        }        
-        //res.json({category_data: categoryData, point_data: pointData});
-        res.render('edit-new', templateVars);
+        }
+        res.render('categories', templateVars);
       });
     });
   });
@@ -93,9 +100,9 @@ module.exports = function (DataHelpers) {
         let pointData = results;
 
         let templateVars = {
-          category_data: categoryData[0], 
+          category_data: categoryData[0],
           point_data: pointData
-        }        
+        }
         //res.json({category_data: categoryData, point_data: pointData});
         res.render('edit-new', templateVars);
       });
