@@ -22,7 +22,6 @@ const DataHelpers = require("./lib/data_helpers.js")(knex);
 // Seperated Routes for each Resource
 const usersRoutes = require("./routes/users");
 const categoriesRoutes = require("./routes/categories");
-const loginRoutes = require("./routes/login");
 
 // Load the logger first so all (static) HTTP requests are logged to STDOUT
 // 'dev' = Concise output colored by response status for development use.
@@ -58,7 +57,6 @@ app.use(isAuthenticated);
 
 // Mount all resource routes
 app.use("/api/users", usersRoutes(DataHelpers));
-app.use("/api/login", loginRoutes(DataHelpers));
 app.use("/api/categories", categoriesRoutes(DataHelpers));
 
 // Home page
@@ -66,6 +64,17 @@ app.get('/', (req, res) => {
   res.render('index', {
     showHeroImage: true,
   });
+});
+
+//Display login page
+app.get("/login", (req, res) => {
+    res.render('login');
+});
+
+//For logging in authenticated user
+app.post("/login", (req, res) => {
+  req.session.user_id = req.body.username;
+  res.redirect('/');
 });
 
 app.listen(PORT, () => {
