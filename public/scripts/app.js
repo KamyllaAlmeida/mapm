@@ -107,7 +107,7 @@ var points = [
     let prunedPoints = selectedMapPoints.map(({lat, lng, placeId}) => ({lat, lng, placeId}));
 
     $.ajax({
-      url: '/',
+      url: '/api/categories',
       type: 'POST',
       data: {'mapPoints': prunedPoints},
     });
