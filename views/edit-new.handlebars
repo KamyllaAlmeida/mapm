@@ -28,7 +28,6 @@
 
   <ul class="list-group">
     {{#each point_data}}
-<<<<<<< 80c3b1200452f1399ce489e0908cefed4162eb7c
     {{category_data}}
 
     <li class="list-group-item d-flex justify-content-between align-items-center" name ="test">
@@ -39,29 +38,3 @@
     </li>
     {{/each}}
   </ul>
-
-  
- 
-=======
-      <li class="list-group-item d-flex justify-content-between align-items-center" name ="test">
-        {{this.title}}
-        <form method="POST" action ="/api/categories/delete/test/{{this.id}}">
-        <button class="btn btn-primary" type="submit">Delete</button>
-        </form>
-      </li>
-    {{/each}}
-  </ul>
-
-<script>
-  $('.list-group li').on('hover', function (event) => {
-    console.log('hitting');
-    $(this).addClass('active');
-  });
-</script>
-
->>>>>>> Adds categories page and a small style sheet for it
-
-
-
-
-
