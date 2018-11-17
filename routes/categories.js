@@ -13,6 +13,7 @@ module.exports = function (DataHelpers) {
       console.log(results);
     })
     res.redirect(`/api/categories/${categoryId}/edit`);
+  });
 
   //TESTING delete points test
   router.post('/delete/test/:id', (req, res) => {
