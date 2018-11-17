@@ -21,6 +21,7 @@ module.exports = function (DataHelpers) {
   router.post('/delete/test/:id', (req, res) => {
     let pointId = req.body.test;
     console.log(pointId);
+
     //DataHelpers.deletePoint(pointId, (results) => {
       //console.log(results);
     //})
@@ -76,6 +77,21 @@ module.exports = function (DataHelpers) {
         res.render('categories', templateVars);
       });
     });
+  });
+
+  // Like category
+  router.put('/:id/like', (req, res) => {
+    if (req.userAuthenticated) {
+      let userId = req.session.user_id;
+      let categoryId = req.params.id;
+
+      DataHelpers.toggleLike(userId, categoryId, (results) => {
+        console.log(results);
+        res.redirect('/');
+      });
+    } else {
+      res.redirect('/');
+    }
   });
 
   // Update category

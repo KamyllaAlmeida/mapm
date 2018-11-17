@@ -1,40 +1,44 @@
 {{> map}}
 
-
 <form method="POST" action="/api/categories/">
-   <div class="form-group">
-    <label for="formGroupExampleInput">Name</label>
-    <input type="text" class="form-control" name ="title" value="{{category_data.name}}"  >
-  </div>
   <div class="form-group">
-    <label for="formGroupExampleInput2">Description</label>
+    <label for="title">Name</label>
+    <input type="text" class="form-control" name="title" value="{{category_data.name}}">
+  </div>
+
+  <div class="form-group">
+    <label for="description">Description</label>
     <input type="text" class="form-control" name="description" value="{{category_data.description}}">
   </div>
+
   <div>
-     <label for="formGroupExampleInput3">Image</label>
-     <input type="text" class="form-control" name="image" value="{{category_data.image}}">
+    <label for="image">Image</label>
+    <input type="text" class="form-control" name="image" value="{{category_data.image}}">
   </div>
+
   <!--<div class="custom-file">
     <input type="file" class="custom-file-input" id="validatedCustomFile" required>
     <label class="custom-file-label" for="validatedCustomFile">Choose file...</label>
-    <div class="invalid-feedback">Example invalid custom file feedback</div>
+    <div class="invalid-feedback">Please select an image.</div>
   </div>-->
- <button type="submit" class="btn btn-primary">Save</button>
 
+  <button type="submit" id="category-form-button" class="btn btn-primary">Submit</button>
 </form>
 
-
+<div class="container">
   <h4>List of points</h4>
 
   <ul class="list-group">
     {{#each point_data}}
-    {{category_data}}
+      {{category_data}}
 
-    <li class="list-group-item d-flex justify-content-between align-items-center" name ="test">
-      {{this.title}}
-      <form method="POST" action ="/api/categories/{{../category_data.id}}/point/{{this.id}}?_method=DELETE">
-      <button class="btn btn-primary" type="submit">Delete</button>
-      </form>
-    </li>
+      <li class="list-group-item d-flex justify-content-between align-items-center" name ="test">
+        {{this.title}}
+
+        <form method="POST" action ="/api/categories/{{../category_data.id}}/point/{{this.id}}?_method=DELETE">
+          <button class="btn btn-primary" type="submit">Delete</button>
+        </form>
+      </li>
     {{/each}}
   </ul>
+</div>

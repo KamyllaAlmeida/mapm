@@ -108,18 +108,20 @@ var points = [
     });
   });
 
-  const ourSelectedPoints = [];
+  // Empty array for points data
+  const selectedMapPoints = [];
 
-  // Update this to not run on window
-  window.submitTheDamnPoints = function() {
-    let prunedPoints = ourSelectedPoints.map(({lat, long, name}) => ({lat, long, name}));
+  // Submit points data using AJAX when clicking the category form button
+  $('#category-form-button').on('click', (event) => {
+    event.preventDefault();
+    let prunedPoints = selectedMapPoints.map(({lat, lng, placeId}) => ({lat, lng, placeId}));
 
     $.ajax({
       url: '/',
       type: 'POST',
       data: {'mapPoints': prunedPoints},
     });
-  };
+  });
 
   autocomplete.addListener('place_changed', () => {
     infowindow.close();
@@ -158,17 +160,17 @@ var points = [
 
     // Get latitude and longitude of point
     const pointLat = place.geometry.location.lat();
-    const pointLong = place.geometry.location.lng();
-    console.log(pointLat, pointLong);
+    const pointLng = place.geometry.location.lng();
 
-    const myPointObj = {
-      name: place.name,
-      lat: pointLat,
-      long: pointLong,
-      marker: marker,
+    // Point data from each point selected on the map
+    const pointData = {
+      lat: Number(pointLat),
+      lng: Number(pointLng),
+      placeId: place.place_id,
     };
 
-    ourSelectedPoints.push(myPointObj);
+    // Push pointData to empty array
+    selectedMapPoints.push(pointData);
 
     // Use to print points to a map
     // map.data.addGeoJson(cachedGeoJson);
