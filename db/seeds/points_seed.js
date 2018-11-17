@@ -12,7 +12,8 @@ exports.seed = function(knex, Promise) {
           description: 'Miku Sushi Description',
           image: 'https://www.placecage.com/g/155/300',
           lat: 49.287047,
-          long: -123.112852
+          long: -123.112852,
+          place_id: "ChIJlyu4u4NxhlQRkUpN_iFwl8Q"
         }),
         knex('points').insert({
           id: 2,
@@ -21,7 +22,8 @@ exports.seed = function(knex, Promise) {
           description: 'Domo Sushi Description',
           image: 'https://www.placecage.com/300/200',
           lat: 49.287327,
-          long: -123.123570
+          long: -123.123570,
+          place_id: "ChIJPTiXSIFxhlQRGgjUxS-Nia4"
         }),
         knex('points').insert({
           id: 3,
@@ -30,7 +32,8 @@ exports.seed = function(knex, Promise) {
           description: 'Ignite Pizzaria Description',
           image: 'https://www.placecage.com/c/140/200',
           lat: 49.284767,
-          long: -123.111164
+          long: -123.111164,
+          place_id: "ChIJMybUkuFzhlQRfkQqDXMjvwU"
         }),
         knex('points').insert({
           id: 4,
@@ -39,7 +42,8 @@ exports.seed = function(knex, Promise) {
           description: 'Pizza 2001 Description',
           image: 'https://www.stevensegallery.com/140/200',
           lat: 49.284028,
-          long: -123.113586
+          long: -123.113586,
+          place_id: "ChIJMybUkuFzhlQRfkQqDXMjvwU"
         }),
         knex('points').insert({
           id: 5,
@@ -48,7 +52,8 @@ exports.seed = function(knex, Promise) {
           description: 'Pizza Garden Description',
           image: 'https://www.stevensegallery.com/300/200',
           lat: 49.280190,
-          long: -123.120886
+          long: -123.120886,
+          place_id: "ChIJm3ixd-NzhlQRORDX9tFD6HI"
         }),
         knex('points').insert({
           id: 6,
@@ -57,7 +62,8 @@ exports.seed = function(knex, Promise) {
           description: 'Sitar Restaurant Description',
           image: 'https://www.stevensegallery.com/460/300',
           lat: 49.283160,
-          long: -123.104020
+          long: -123.104020,
+          place_id: "ChIJP9kPS3dxhlQRaOfaiIBx5OY"
         }),
       ]);
     });
