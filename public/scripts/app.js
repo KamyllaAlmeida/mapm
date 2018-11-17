@@ -98,12 +98,19 @@ function initGoogleMaps() {
   // Submit points data using AJAX when clicking the category form button
   $('#category-form-button').on('click', (event) => {
     event.preventDefault();
-    let prunedPoints = selectedMapPoints.map(({lat, lng, placeId}) => ({lat, lng, placeId}));
+    let prunedPoints = selectedMapPoints.map(({lat, lng, placeId, title, description}) => ({lat, lng, placeId, title, description}));
 
     $.ajax({
       url: '/api/categories',
       type: 'POST',
-      data: {'mapPoints': prunedPoints},
+      data: {
+        'category': $('#save-category-form').serializeArray(),
+        'mapPoints': prunedPoints},
+      success: function(response) {
+        console.log('hitting this');
+        console.log(response.url);
+        window.location.replace(response.url);
+      },
     });
   });
 
@@ -151,6 +158,8 @@ function initGoogleMaps() {
       lat: Number(pointLat),
       lng: Number(pointLng),
       placeId: place.place_id,
+      title: place.name,
+      description: place.formatted_address
     };
 
     // Push pointData to empty array
