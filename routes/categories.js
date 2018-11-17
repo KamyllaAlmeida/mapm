@@ -5,13 +5,14 @@ const router  = express.Router();
 
 module.exports = function (DataHelpers) {
 
-  //TESTING delete points test
-  router.post('/delete/test/:id', (req, res) => {
-    let pointId = req.body.test;
-    console.log(pointId);
-    //DataHelpers.deletePoint(pointId, (results) => {
-      //console.log(results);
-    //})        
+  //Delete points
+  router.delete('/:categoryId/point/:id', (req, res) => {
+    let categoryId = req.params.categoryId;
+    let pointId = req.params.id;
+    DataHelpers.deletePoint(pointId, (results) => {
+      console.log(results);
+    }) 
+    res.redirect(`/api/categories/${categoryId}/edit`);        
   });
 
   // Get all categories.
@@ -40,7 +41,7 @@ module.exports = function (DataHelpers) {
 
     DataHelpers.addCategory(category, (results) => {
       //res.json(results);
-      res.redirect(`/api/categories/${results}`);
+      res.redirect(`/api/categories/${results}/edit`);
     });
   });
 
@@ -55,7 +56,7 @@ module.exports = function (DataHelpers) {
         let pointData = results;
 
         let templateVars = {
-          category_data: categoryData, 
+          category_data: categoryData[0], 
           point_data: pointData
         }        
         //res.json({category_data: categoryData, point_data: pointData});
@@ -79,6 +80,27 @@ module.exports = function (DataHelpers) {
         res.redirect('/');
       }
     });
+
+    //Edit category
+    router.get('/:id/edit', (req, res) => {
+
+    let categoryId = req.params.id;
+
+    DataHelpers.getCategoryByID(categoryId, (results) => {
+      let categoryData = results;
+
+      DataHelpers.getPoints(categoryId, (results) => {
+        let pointData = results;
+
+        let templateVars = {
+          category_data: categoryData[0], 
+          point_data: pointData
+        }        
+        //res.json({category_data: categoryData, point_data: pointData});
+        res.render('edit-new', templateVars);
+      });
+    });
+  });
 
     //update category
     router.put('/:id/edit', (req, res) => {
