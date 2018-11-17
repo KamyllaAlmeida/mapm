@@ -94,6 +94,24 @@ module.exports = function (DataHelpers) {
     }
   });
 
+  //Edit category
+  router.get('/:id/edit', (req, res) => {
+    let categoryId = req.params.id;
+    DataHelpers.getCategoryByID(categoryId, (results) => {
+     let categoryData = results;
+      DataHelpers.getPoints(categoryId, (results) => {
+       let pointData = results;
+        let templateVars = {
+         category_data: categoryData[0], 
+         point_data: pointData
+       }        
+       //res.json({category_data: categoryData, point_data: pointData});
+       res.render('edit-new', templateVars);
+     });
+   });
+  });
+
+
   // Update category
   router.put('/:id/edit', (req, res) => {
     res.json({'id': req.params.id});

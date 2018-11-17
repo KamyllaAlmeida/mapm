@@ -24,12 +24,10 @@ var points = [
   {lat: 49.278619, lng: -123.11538999999999, placeId: "ChIJlU3DzX1xhlQRQKD6yVPPrx0"}
   ];
 
-
-
   var service = new google.maps.places.PlacesService(map);
   
   //let infowindow = new google.maps.InfoWindow();
-  var markers = []
+  var markers = [];
   points.forEach(element => {
 
     var request = {
@@ -72,18 +70,11 @@ var points = [
     } else {
       infowindowContent.children['place-photo'].src = '/images/map-image-placeholder.png';
     }
-
     infowindowContent.children['place-name'].textContent = place.name;
     infowindowContent.children['place-description'].textContent = place.formatted_address;
   }
-
-
-
-
-
-
-
 /////////
+
   const searchInput = document.getElementById('pac-input');
 
   let autocomplete = new google.maps.places.Autocomplete(searchInput);
