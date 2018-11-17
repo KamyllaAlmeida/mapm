@@ -17,6 +17,74 @@ function initGoogleMaps() {
     zoom: 15
   });
 
+////////
+
+var points = [
+  {lat: 49.2777153, lng: -123.1201232, placeId: "ChIJOf2W8H1xhlQRcHg0iE0vxJg"},
+  {lat: 49.278619, lng: -123.11538999999999, placeId: "ChIJlU3DzX1xhlQRQKD6yVPPrx0"}
+  ];
+
+
+
+  var service = new google.maps.places.PlacesService(map);
+  
+  //let infowindow = new google.maps.InfoWindow();
+  var markers = []
+  points.forEach(element => {
+
+    var request = {
+      placeId: element.placeId,
+      fields: ['place_id','name', 'rating', 'formatted_phone_number', 'geometry', 'photos', 'formatted_address']
+    };
+
+    
+    service.getDetails(request, callback);
+  
+    function callback(place, status) {
+      if (status == google.maps.places.PlacesServiceStatus.OK) {
+        var amarker = newMaker(place);
+        amarker.setVisible(true);
+        markers.push(amarker);
+         amarker.addListener('click', function() {
+          setInfoWindowContent(place);
+          infowindow.open(map, amarker);
+        }); 
+       
+      }
+    }
+  });
+
+  function newMaker(place) { 
+    var amarker = new google.maps.Marker({
+      map: map,
+      place: {
+      placeId: place.place_id,
+      location: place.geometry.location
+      }
+    })
+    return amarker;
+  }
+
+
+  function setInfoWindowContent(place) {
+    if (place.photos !== undefined) {
+      infowindowContent.children['place-photo'].src = place.photos[0].getUrl({ 'maxWidth': 100, 'maxHeight': 100 });
+    } else {
+      infowindowContent.children['place-photo'].src = '/images/map-image-placeholder.png';
+    }
+
+    infowindowContent.children['place-name'].textContent = place.name;
+    infowindowContent.children['place-description'].textContent = place.formatted_address;
+  }
+
+
+
+
+
+
+
+
+/////////
   const searchInput = document.getElementById('pac-input');
 
   let autocomplete = new google.maps.places.Autocomplete(searchInput);
