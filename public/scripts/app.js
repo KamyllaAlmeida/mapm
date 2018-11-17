@@ -66,6 +66,11 @@ function initGoogleMaps() {
     infowindowContent.children['place-name'].textContent = place.name;
     infowindowContent.children['place-description'].textContent = place.formatted_address;
     infowindow.open(map, marker);
+
+    // Get latitude and longitude of point
+    const pointLat = place.geometry.location.lat();
+    const pointLong = place.geometry.location.lng();
+    console.log(pointLat, pointLong);
   });
 
   // Show map and search input after last event is loaded (tilesloaded)
