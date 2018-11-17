@@ -98,13 +98,34 @@ var points = [
     map: map
   });
 
-  marker.addListener('click', function() {
+  marker.addListener('click', () => {
     infowindow.open(map, marker);
   });
 
-  autocomplete.addListener('place_changed', function() {
+  google.maps.event.addListener(map, 'click', function(event) {
+    google.maps.event.addListener(marker, 'click', function() {
+      infowindow.open(map, marker);
+    });
+  });
+
+  const ourSelectedPoints = [];
+
+  // Update this to not run on window
+  window.submitTheDamnPoints = function() {
+    let prunedPoints = ourSelectedPoints.map(({lat, long, name}) => ({lat, long, name}));
+
+    $.ajax({
+      url: '/',
+      type: 'POST',
+      data: {'mapPoints': prunedPoints},
+    });
+  };
+
+  autocomplete.addListener('place_changed', () => {
     infowindow.close();
-    var place = autocomplete.getPlace();
+
+    const place = autocomplete.getPlace();
+
     if (!place.geometry) {
       return;
     }
@@ -116,7 +137,7 @@ var points = [
       map.setZoom(17);
     }
 
-    // Set the position of the marker using the place ID and location.
+    // Set the position of the marker using the place ID and location
     marker.setPlace({
       placeId: place.place_id,
       location: place.geometry.location
@@ -139,6 +160,18 @@ var points = [
     const pointLat = place.geometry.location.lat();
     const pointLong = place.geometry.location.lng();
     console.log(pointLat, pointLong);
+
+    const myPointObj = {
+      name: place.name,
+      lat: pointLat,
+      long: pointLong,
+      marker: marker,
+    };
+
+    ourSelectedPoints.push(myPointObj);
+
+    // Use to print points to a map
+    // map.data.addGeoJson(cachedGeoJson);
   });
 
   // Show map and search input after last event is loaded (tilesloaded)

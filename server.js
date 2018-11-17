@@ -66,13 +66,13 @@ app.get('/', (req, res) => {
   });
 });
 
-//Display login page
-app.get("/login", (req, res) => {
-    res.render('login');
+// Display login page
+app.get('/login', (req, res) => {
+  res.render('login');
 });
 
-//For logging in authenticated user
-app.post("/login", (req, res) => {
+// For logging in authenticated user
+app.post('/login', (req, res) => {
   req.session.user_id = req.body.username;
   res.redirect('/');
 });

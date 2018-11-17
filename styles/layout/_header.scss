@@ -7,7 +7,8 @@
   padding: 0;
   color: $color-white;
   background: $color-darker-gray;
-  box-shadow: 0 1px 1px 1px rgba($color-black, 0.2);
+  border-bottom: 1px solid $color-darkest-gray;
+  box-shadow: 0 0 4px rgba($color-black, 0.14), 0 4px 8px rgba($color-black, 0.28);
 
   .logo img {
     max-width: 150px;
