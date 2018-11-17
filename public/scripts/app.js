@@ -17,52 +17,47 @@ function initGoogleMaps() {
     zoom: 15
   });
 
-////////
-
-var points = [
-  {lat: 49.2777153, lng: -123.1201232, placeId: "ChIJOf2W8H1xhlQRcHg0iE0vxJg"},
-  {lat: 49.278619, lng: -123.11538999999999, placeId: "ChIJlU3DzX1xhlQRQKD6yVPPrx0"}
+  const points = [
+    {lat: 49.2777153, lng: -123.1201232, placeId: "ChIJOf2W8H1xhlQRcHg0iE0vxJg"},
+    {lat: 49.278619, lng: -123.11538999999999, placeId: "ChIJlU3DzX1xhlQRQKD6yVPPrx0"}
   ];
 
-  var service = new google.maps.places.PlacesService(map);
-  
-  //let infowindow = new google.maps.InfoWindow();
-  var markers = [];
-  points.forEach(element => {
+  const service = new google.maps.places.PlacesService(map);
+  const markers = [];
 
-    var request = {
+  points.forEach(element => {
+    const request = {
       placeId: element.placeId,
       fields: ['place_id','name', 'rating', 'formatted_phone_number', 'geometry', 'photos', 'formatted_address']
     };
 
-    
     service.getDetails(request, callback);
-  
+
     function callback(place, status) {
-      if (status == google.maps.places.PlacesServiceStatus.OK) {
-        var amarker = newMaker(place);
-        amarker.setVisible(true);
-        markers.push(amarker);
-         amarker.addListener('click', function() {
+      if (status === google.maps.places.PlacesServiceStatus.OK) {
+        const aMarker = newMaker(place);
+        aMarker.setVisible(true);
+        markers.push(aMarker);
+
+        aMarker.addListener('click', () => {
           setInfoWindowContent(place);
-          infowindow.open(map, amarker);
-        }); 
-       
+          infowindow.open(map, aMarker);
+        });
       }
     }
   });
 
-  function newMaker(place) { 
-    var amarker = new google.maps.Marker({
+  function newMaker(place) {
+    const aMarker = new google.maps.Marker({
       map: map,
       place: {
-      placeId: place.place_id,
-      location: place.geometry.location
+        placeId: place.place_id,
+        location: place.geometry.location,
       }
-    })
-    return amarker;
-  }
+    });
 
+    return aMarker;
+  }
 
   function setInfoWindowContent(place) {
     if (place.photos !== undefined) {
@@ -73,7 +68,6 @@ var points = [
     infowindowContent.children['place-name'].textContent = place.name;
     infowindowContent.children['place-description'].textContent = place.formatted_address;
   }
-/////////
 
   const searchInput = document.getElementById('pac-input');
 
@@ -169,7 +163,10 @@ var points = [
   // Show map and search input after last event is loaded (tilesloaded)
   google.maps.event.addListenerOnce(map, 'tilesloaded', function() {
     document.getElementById('map').style.visibility = 'visible';
-    document.getElementById('pac-input').style.display = 'block';
+
+    if (!$('[data-category-name]').length) {
+      searchInput.style.display = 'block';
+    }
   });
 }
 

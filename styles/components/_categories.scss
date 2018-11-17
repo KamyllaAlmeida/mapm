@@ -1,4 +1,25 @@
-.list-group li:hover {
-  background-color: #28a745;
-  color: white;
+.category-title {
+  margin-top: 0;
+  text-align: center;
+  text-transform: capitalize;
+}
+
+.category-list--title {
+  margin: $space-medium 0 $space-x-small;
+}
+
+.list-group li {
+  &:hover {
+    background-color: $color-green;
+    color: $color-white;
+  }
+}
+
+.categories-form--new-save {
+  @extend %clearfix;
+}
+
+#category-form-button {
+  margin-top: $space-small;
+  float: right;
 }

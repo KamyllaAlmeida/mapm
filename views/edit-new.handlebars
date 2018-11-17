@@ -1,6 +1,8 @@
+<h1 class="category-title">Category</h1>
+
 {{> map}}
 
-<form method="POST" action="/api/categories/">
+<form method="POST" action="/api/categories/" class="categories-form--new-save">
   <div class="form-group">
     <label for="title">Name</label>
     <input type="text" class="form-control" name="title" value="{{category_data.name}}">
@@ -25,20 +27,18 @@
   <button type="submit" id="category-form-button" class="btn btn-primary">Submit</button>
 </form>
 
-<div class="container">
-  <h4>List of points</h4>
+<h5 class="category-list--title">List of points</h5>
 
-  <ul class="list-group">
-    {{#each point_data}}
-      {{category_data}}
+<ul class="list-group">
+  {{#each point_data}}
+    {{category_data}}
 
-      <li class="list-group-item d-flex justify-content-between align-items-center" name ="test">
-        {{this.title}}
+    <li class="list-group-item d-flex justify-content-between align-items-center" name ="test">
+      {{this.title}}
 
-        <form method="POST" action ="/api/categories/{{../category_data.id}}/point/{{this.id}}?_method=DELETE">
-          <button class="btn btn-primary" type="submit">Delete</button>
-        </form>
-      </li>
-    {{/each}}
-  </ul>
-</div>
+      <form method="POST" action ="/api/categories/{{../category_data.id}}/point/{{this.id}}?_method=DELETE">
+        <button class="btn btn-primary" type="submit">Delete</button>
+      </form>
+    </li>
+  {{/each}}
+</ul>
