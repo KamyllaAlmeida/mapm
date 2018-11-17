@@ -1,13 +1,14 @@
 // Internal libraries
-@import "lib/_settings";
+@import "lib/settings";
 @import "lib/mixins";
+@import "lib/extends";
 
 // Global styles
-@import "layout/_body";
-@import "layout/_header";
-@import "layout/_footer";
+@import "layout/body";
+@import "layout/header";
+@import "layout/footer";
 
 // Components
-@import "components/_maps";
-@import "components/_home-hero";
-@import "components/_categories";
+@import "components/maps";
+@import "components/home-hero";
+@import "components/categories";

@@ -43,7 +43,6 @@ module.exports = function (DataHelpers) {
   // Saving New Category
   router.post('/', (req, res) => {
     // I need to implement a function to save the image.
-
     let category =  {
       name: req.body.title,
       description: req.body.description,
