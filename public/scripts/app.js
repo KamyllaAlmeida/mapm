@@ -158,6 +158,8 @@ function initGoogleMaps(points) {
     // Push pointData to empty array
     selectedMapPoints.push(pointData);
 
+    // Displays the clicked item in the list below
+    $('.list-group').append($('<li>', {class: 'list-group-item d-flex justify-content-between align-items-center'}).text(place.name));
     // Use to print points to a map
     // map.data.addGeoJson(cachedGeoJson);
   });
