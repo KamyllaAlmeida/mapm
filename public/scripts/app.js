@@ -155,13 +155,35 @@ function initGoogleMaps(points) {
       description: place.formatted_address
     };
 
-    // Push pointData to empty array
-    selectedMapPoints.push(pointData);
+    addPoint(pointData);
 
-    // Displays the clicked item in the list below
-    $('.list-group').append($('<li>', {class: 'list-group-item d-flex justify-content-between align-items-center'}).text(place.name));
-    // Use to print points to a map
-    // map.data.addGeoJson(cachedGeoJson);
+    // Adds a point to the list if it is not already there.
+    function addPoint(pointData) {
+      let currentIds = selectedMapPoints.map((item) => item.placeId);
+      if (!currentIds.includes(pointData.placeId)) {
+        selectedMapPoints.push(pointData);
+        $('.list-group')
+          .append($('<li>', {class: 'list-group-item d-flex justify-content-between align-items-center'})
+            .append($('<span>', {class: 'list-group-item-label'}).text(pointData.title))
+            .append($('<button>', {class: 'list-item-delete-button', 'data-placeId': `${pointData.placeId}`}).text('Delete')));
+
+        $(`[data-placeId=${pointData.placeId}]`).on('click', function(event) {
+          removePoint($(event.target).attr('data-placeId'));
+          $(this).parent().remove();
+        });
+      }
+
+      //TODO: Add error display if the user has already added this point.
+    }
+
+    // Removes a point from the list.
+    function removePoint(placeId) {
+      let removeIndex = selectedMapPoints.map((item) => item.placeId).indexOf(placeId);
+      if (removeIndex !== -1) {
+        selectedMapPoints.splice(removeIndex, 1);
+      }
+    }
+
   });
 
   // Show map and search input after last event is loaded (tilesloaded)
