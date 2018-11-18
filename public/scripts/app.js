@@ -1,31 +1,19 @@
-$(() => {
-  $.ajax({
-    method: "GET",
-    url: "/api/users"
-  }).done((users) => {
-    for (let user of users) {
-      // $("<div>").text(user.name).appendTo($("body"));
-      console.log(user.name);
-    }
-  });
-});
 
 // Initialize Google Maps API map
-function initGoogleMaps() {
+function initGoogleMaps(points) {
   const map = new google.maps.Map(document.getElementById('map'), {
-    center: {lat: 49.283832198, lng: -123.119332856},
-    zoom: 15
+    zoom: 12
   });
 
-  const points = [
-    {lat: 49.2777153, lng: -123.1201232, placeId: "ChIJOf2W8H1xhlQRcHg0iE0vxJg"},
-    {lat: 49.278619, lng: -123.11538999999999, placeId: "ChIJlU3DzX1xhlQRQKD6yVPPrx0"}
-  ];
-
+  console.log(points);
   const service = new google.maps.places.PlacesService(map);
   const markers = [];
-
+  var markerBounds = new google.maps.LatLngBounds();
+  let boundPoint;
   points.forEach(element => {
+    console.log(element);
+    boundPoint = new google.maps.LatLng(element.lat, element.lng);
+    markerBounds.extend(boundPoint);
     const request = {
       placeId: element.placeId,
       fields: ['place_id','name', 'rating', 'formatted_phone_number', 'geometry', 'photos', 'formatted_address']
@@ -46,6 +34,11 @@ function initGoogleMaps() {
       }
     }
   });
+  console.log(markerBounds);
+
+  map.fitBounds(markerBounds);
+  map.panToBounds(markerBounds);
+  // map.setCenter(bounds.getCenter());
 
   function newMaker(place) {
     const aMarker = new google.maps.Marker({
@@ -186,6 +179,27 @@ $(document).ready(() => {
     naturalHeight: 627,
     speed: 0.5,
   });
+  let points = [];
+  let re = new RegExp('^\/api\/categories\/[0-9]+$');
+  if (re.test(window.location.pathname)) {
+    var path = window.location.pathname.slice(16);
 
-  initGoogleMaps();
+  $.ajax({
+    method: "GET",
+    url: `/api/categories/${path}/points`,
+  }).done((result) => {
+    result.pointData.forEach((point) => {
+      points.push({
+        lat: point.lat,
+        lng: point.long,
+        placeId: point.place_id,
+      });
+    });
+    initGoogleMaps(points);
+  });
+  } else {
+    console.log('happening');
+    initGoogleMaps(points);
+  }
+
 });

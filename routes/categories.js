@@ -74,23 +74,29 @@ module.exports = function (DataHelpers) {
   // After select a Category show this page
   router.get('/:id', (req, res) => {
     let categoryId = req.params.id;
+      DataHelpers.getCategoryByID(categoryId, (results) => {
+        let categoryData = results;
 
-    DataHelpers.getCategoryByID(categoryId, (results) => {
-      let categoryData = results;
+        DataHelpers.getPoints(categoryId, (results) => {
+          let pointData = results;
 
-      DataHelpers.getPoints(categoryId, (results) => {
-        let pointData = results;
+          let templateVars = {
+            category_data: categoryData[0],
+            point_data: pointData
+          };
 
-        let templateVars = {
-          category_data: categoryData[0],
-          point_data: pointData
-        };
-
-        res.render('categories', templateVars);
+          res.render('categories', templateVars);
+        });
       });
-    });
   });
 
+  router.get('/:id/points', (req, res) => {
+    let categoryId = req.params.id;
+    DataHelpers.getPoints(categoryId, (pointResults) => {
+      let pointData = pointResults;
+      res.json({pointData: pointData});
+    });
+  });
   // Like category
   router.put('/:id/like', (req, res) => {
     if (req.userAuthenticated) {
