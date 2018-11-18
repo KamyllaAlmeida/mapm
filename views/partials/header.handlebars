@@ -3,9 +3,15 @@
     <div class="logo">
       <img src="/images/mapm-logo.png" alt="MAPM" />
     </div>
-
     <div class="user-actions">
-      <a class="btn btn-success" href="/login">Login</a>
+      {{#if user}}
+        <form method="POST" action="/logout">
+          Hi, {{user}}
+          <button class ="btn btn-success">Logout</button>
+        </form>
+      {{else}}
+        <a class="btn btn-success" href="/login">Login</a>
+      {{/if}}
     </div>
   </nav>
 </header>

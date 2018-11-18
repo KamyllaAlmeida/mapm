@@ -63,6 +63,7 @@ app.use("/api/categories", categoriesRoutes(DataHelpers));
 app.get('/', (req, res) => {
   res.render('index', {
     showHeroImage: true,
+    user: req.session.user_id
   });
 });
 
@@ -75,6 +76,11 @@ app.get('/login', (req, res) => {
 app.post('/login', (req, res) => {
   req.session.user_id = req.body.username;
   res.redirect('/');
+});
+
+app.post('/logout', (req, res) => {
+  req.session = null;
+  res.redirect("/"); 
 });
 
 app.listen(PORT, () => {

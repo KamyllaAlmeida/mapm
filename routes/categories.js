@@ -30,13 +30,17 @@ module.exports = function (DataHelpers) {
   // Get all categories
   router.get('/', (req, res) => {
     DataHelpers.getCategories((results) => {
+      console.log(results);
       res.json(results);
     });
   });
 
   // New Category Page
   router.get('/new', (req, res) => {
-    res.render('edit-new');
+    let templateVars = {
+      user: req.session.user_id
+    }
+    res.render('edit-new', templateVars);
   });
 
   // Saving New Category
@@ -82,7 +86,8 @@ module.exports = function (DataHelpers) {
 
           let templateVars = {
             category_data: categoryData[0],
-            point_data: pointData
+            point_data: pointData,
+            user: req.session.user_id
           };
 
           res.render('categories', templateVars);
@@ -125,7 +130,8 @@ module.exports = function (DataHelpers) {
          let pointData = results;
           let templateVars = {
            category_data: categoryData[0],
-           point_data: pointData
+           point_data: pointData,
+           user: req.session.user_id
          }
          //res.json({category_data: categoryData, point_data: pointData});
          res.render('edit-new', templateVars);
