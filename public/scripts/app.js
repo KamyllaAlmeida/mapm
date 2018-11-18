@@ -230,8 +230,6 @@ $(document).ready(() => {
         });
       });
       initGoogleMaps(points);
-    });
-    initGoogleMaps(points);
   });
   } else if (editRe.test(window.location.pathname)) {
     var path = window.location.pathname.slice(16);
