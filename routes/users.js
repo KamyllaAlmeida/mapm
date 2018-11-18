@@ -3,13 +3,12 @@
 const express = require('express');
 const router  = express.Router();
 
-module.exports = function (DataHelpers) {
-
+module.exports = function(DataHelpers) {
   //TODO: Delete this route before production.
   //Example page
   router.get("/", (req, res) => {
     DataHelpers.getUsers((results) => {
-        res.json(results);
+      res.json(results);
     });
   });
 
@@ -17,12 +16,16 @@ module.exports = function (DataHelpers) {
   router.get("/:id", (req, res) => {
     //TODO: These can run concurrently using a callback control flow
     let userId = req.params.id;
+
     DataHelpers.getUserById(userId, (userResults) => {
       let userInfo = userResults;
+
       DataHelpers.getContributes(userId, (contributesResults) => {
         let contributesInfo = contributesResults;
+
         DataHelpers.getLikes(userId, (likesResults) => {
           let likesInfo = likesResults;
+
           res.render('users', {user: userInfo, likes: likesInfo, contributes: contributesInfo});
         });
       });
@@ -43,4 +46,4 @@ module.exports = function (DataHelpers) {
   });
 
   return router;
-}
+};

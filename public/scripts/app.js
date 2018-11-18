@@ -23,7 +23,7 @@ function initGoogleMaps(points) {
 
     function callback(place, status) {
       if (status === google.maps.places.PlacesServiceStatus.OK) {
-        const aMarker = newMaker(place);
+        const aMarker = newMarker(place);
         aMarker.setVisible(true);
         markers.push(aMarker);
 
@@ -40,7 +40,7 @@ function initGoogleMaps(points) {
   map.panToBounds(markerBounds);
   // map.setCenter(bounds.getCenter());
 
-  function newMaker(place) {
+  function newMarker(place) {
     const aMarker = new google.maps.Marker({
       map: map,
       place: {
@@ -203,27 +203,30 @@ $(document).ready(() => {
     naturalHeight: 627,
     speed: 0.5,
   });
+
   let points = [];
   let re = new RegExp('^\/api\/categories\/[0-9]+$');
-  if (re.test(window.location.pathname)) {
-    var path = window.location.pathname.slice(16);
 
-  $.ajax({
-    method: "GET",
-    url: `/api/categories/${path}/points`,
-  }).done((result) => {
-    result.pointData.forEach((point) => {
-      points.push({
-        lat: point.lat,
-        lng: point.long,
-        placeId: point.place_id,
+  if (re.test(window.location.pathname)) {
+    const path = window.location.pathname.slice(16);;
+
+    $.ajax({
+      method: "GET",
+      url: `/api/categories/${path}/points`,
+    }).done((result) => {
+      result.pointData.forEach((point) => {
+        points.push({
+          lat: point.lat,
+          lng: point.long,
+          placeId: point.place_id,
+        });
       });
+      initGoogleMaps(points);
     });
-    initGoogleMaps(points);
-  });
   } else {
-    console.log('happening');
-    initGoogleMaps(points);
+    if (document.location.href.indexOf('users') === -1) {
+      initGoogleMaps(points);
+    }
   }
 
   $('[data-categories-grid]').masonry({
@@ -232,8 +235,4 @@ $(document).ready(() => {
     gutter: 20,
     fitWidth: true,
   });
-
-  if (document.location.href.indexOf('users') === -1) {
-    initGoogleMaps();
-  }
 });

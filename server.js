@@ -60,8 +60,13 @@ app.use("/api/categories", categoriesRoutes(DataHelpers));
 
 // Home page
 app.get('/', (req, res) => {
-  res.render('index', {
-    showHeroImage: true,
+  DataHelpers.getCategories((results) => {
+    res.render('index',
+      {
+        showHeroImage: true,
+        categories: results,
+      }
+    );
   });
 });
 
