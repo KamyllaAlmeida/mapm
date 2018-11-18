@@ -226,4 +226,14 @@ $(document).ready(() => {
     initGoogleMaps(points);
   }
 
+  $('[data-categories-grid]').masonry({
+    itemSelector: '.category-grid--item',
+    columnWidth: 300,
+    gutter: 20,
+    fitWidth: true,
+  });
+
+  if (document.location.href.indexOf('users') === -1) {
+    initGoogleMaps();
+  }
 });

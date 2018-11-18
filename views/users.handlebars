@@ -1,18 +1,43 @@
-<h2>User Info</h2>
-<h4>{{user.0.id}}</h4>
-<h4>{{user.0.name}}</h4>
-<h4>{{user.0.username}}</h4>
+<h1>{{user.0.username}}'s Profile</h1>
 
-<h2>Likes</h2>
-{{#each likes}}
-  <img src="{{this.image}}" height="100" width="100"><img>
-  <h4>{{this.name}}</h4>
-  <h4>{{this.description}}</h4>
-{{/each}}
+<h4 class="categories-contributed--title">Contributed Categories</h4>
 
-<h2>Contributes</h2>
-{{#each contributes}}
-  <img src="{{this.image}}" height="100" width="100"><img>
-  <h4>{{this.name}}</h4>
-  <h4>{{this.description}}</h4>
-{{/each}}
+<div class="categories-grid" data-categories-grid>
+  {{#each contributes}}
+    <a class="category-grid--link" href="#">
+      <div class="category-grid--item">
+        {{#if this.image}}
+          <img src="{{this.image}}" alt="{{this.name}}" />
+        {{else}}
+          <div class="category-grid--no-image"></div>
+        {{/if}}
+
+        <div class="category-grid--info">
+          <span>{{this.name}}</span>
+          <span>{{this.description}}</span>
+        </div>
+      </div>
+    </a>
+  {{/each}}
+</div>
+
+<h4 class="categories-liked--title">Liked Categories</h4>
+
+<div class="categories-grid" data-categories-grid>
+  {{#each likes}}
+    <a class="category-grid--link" href="#">
+      <div class="category-grid--item">
+        {{#if this.image}}
+          <img src="{{this.image}}" alt="{{this.name}}" />
+        {{else}}
+          <div class="category-grid--no-image"></div>
+        {{/if}}
+
+        <div class="category-grid--info">
+          <span>{{this.name}}</span>
+          <span>{{this.description}}</span>
+        </div>
+      </div>
+    </a>
+  {{/each}}
+</div>

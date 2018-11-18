@@ -1,6 +1,4 @@
 .category-title {
-  margin-top: 0;
-  text-align: center;
   text-transform: capitalize;
 }
 
@@ -22,4 +20,52 @@
 #category-form-button {
   margin-top: $space-small;
   float: right;
+}
+
+.categories-contributed--title,
+.categories-liked--title {
+  margin: $space-xx-large 0 $space-x-large;
+  text-align: center;
+}
+
+.categories-grid {
+  margin: 0 auto;
+}
+
+.category-grid--item {
+  margin-bottom: $space-medium;
+
+  img {
+    max-width: 300px;
+    transition: 0.2s ease;
+  }
+
+  &:hover {
+    img {
+      opacity: 0.5;
+    }
+  }
+}
+
+.category-grid--info {
+  @include centerer;
+  padding: $space-x-small;
+  text-align: center;
+  background: rgba($color-white, 0.8);
+
+  span:first-of-type {
+    display: block;
+    margin-bottom: $space-xx-small;
+    text-transform: capitalize;
+  }
+}
+
+.category-grid--no-image {
+  width: 300px;
+  height: 300px;
+  background-color: $color-green;
+}
+
+.category-grid--link {
+  color: $color-black;
 }
