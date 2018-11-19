@@ -102,6 +102,7 @@ module.exports = function (DataHelpers) {
       res.json({pointData: pointData});
     });
   });
+
   // Like category
   router.put('/:id/like', (req, res) => {
     if (req.userAuthenticated) {

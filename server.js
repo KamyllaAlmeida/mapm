@@ -18,7 +18,6 @@ const morgan      = require('morgan');
 const knexLogger  = require('knex-logger');
 const DataHelpers = require("./lib/data_helpers.js")(knex);
 
-
 // Seperated Routes for each Resource
 const usersRoutes = require("./routes/users");
 const categoriesRoutes = require("./routes/categories");
@@ -61,15 +60,22 @@ app.use("/api/categories", categoriesRoutes(DataHelpers));
 
 // Home page
 app.get('/', (req, res) => {
-  res.render('index', {
-    showHeroImage: true,
-    user: req.session.user_id
+  DataHelpers.getCategories((results) => {
+    res.render('index',
+      {
+        showHeroImage: true,
+        categories: results,
+        user: req.session.user_id
+      }
+    );
   });
 });
 
 // Display login page
 app.get('/login', (req, res) => {
-  res.render('login');
+  res.render('login', {
+    showHeroImage: true,
+  });
 });
 
 // For logging in authenticated user

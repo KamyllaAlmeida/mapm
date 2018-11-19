@@ -5,7 +5,10 @@ function initGoogleMaps(points) {
     zoom: 12
   });
 
-  console.log(points);
+  // console.log(window.location.path);
+  let editRe = new RegExp('^\/api\/categories\/[0-9]+\/edit$');
+  let isEditPage = editRe.test(window.location.pathname);
+
   const service = new google.maps.places.PlacesService(map);
   const markers = [];
   var markerBounds = new google.maps.LatLngBounds();
@@ -23,7 +26,7 @@ function initGoogleMaps(points) {
 
     function callback(place, status) {
       if (status === google.maps.places.PlacesServiceStatus.OK) {
-        const aMarker = newMaker(place);
+        const aMarker = newMarker(place);
         aMarker.setVisible(true);
         markers.push(aMarker);
 
@@ -40,7 +43,7 @@ function initGoogleMaps(points) {
   map.panToBounds(markerBounds);
   // map.setCenter(bounds.getCenter());
 
-  function newMaker(place) {
+  function newMarker(place) {
     const aMarker = new google.maps.Marker({
       map: map,
       place: {
@@ -100,17 +103,50 @@ function initGoogleMaps(points) {
         'category': $('#save-category-form').serializeArray(),
         'mapPoints': prunedPoints},
       success: function(response) {
-        console.log('hitting this');
-        console.log(response.url);
         window.location.replace(response.url);
       },
     });
   });
 
+  function addPoint(pointData) {
+    let currentIds = selectedMapPoints.map((item) => item.placeId);
+    console.log(selectedMapPoints);
+    if (!currentIds.includes(pointData.placeId)) {
+      selectedMapPoints.push(pointData);
+      $('.list-group')
+        .append($('<li>', {class: 'list-group-item d-flex justify-content-between align-items-center'})
+          .append($('<span>', {class: 'list-group-item-label'}).text(pointData.title))
+          .append($('<button>', {class: 'list-item-delete-button', 'data-placeId': `${pointData.placeId}`}).text('Delete')));
+
+      $(`[data-placeId=${pointData.placeId}]`).on('click', function(event) {
+        removePoint($(event.target).attr('data-placeId'));
+        $(this).parent().remove();
+      });
+    } else {
+    }
+    //TODO: Add error display if the user has already added this point.
+  }
+
+  function removePoint(placeId) {
+    let removeIndex = selectedMapPoints.map((item) => item.placeId).indexOf(placeId);
+    if (removeIndex !== -1) {
+      selectedMapPoints.splice(removeIndex, 1);
+    }
+  }
+
+  if(isEditPage) {
+    points.forEach((point) => {
+      console.log('happening');
+      addPoint(point);
+    });
+  }
+
+  console.log(selectedMapPoints);
   autocomplete.addListener('place_changed', () => {
     infowindow.close();
 
     const place = autocomplete.getPlace();
+
 
     if (!place.geometry) {
       return;
@@ -156,34 +192,6 @@ function initGoogleMaps(points) {
     };
 
     addPoint(pointData);
-
-    // Adds a point to the list if it is not already there.
-    function addPoint(pointData) {
-      let currentIds = selectedMapPoints.map((item) => item.placeId);
-      if (!currentIds.includes(pointData.placeId)) {
-        selectedMapPoints.push(pointData);
-        $('.list-group')
-          .append($('<li>', {class: 'list-group-item d-flex justify-content-between align-items-center'})
-            .append($('<span>', {class: 'list-group-item-label'}).text(pointData.title))
-            .append($('<button>', {class: 'list-item-delete-button', 'data-placeId': `${pointData.placeId}`}).text('Delete')));
-
-        $(`[data-placeId=${pointData.placeId}]`).on('click', function(event) {
-          removePoint($(event.target).attr('data-placeId'));
-          $(this).parent().remove();
-        });
-      }
-
-      //TODO: Add error display if the user has already added this point.
-    }
-
-    // Removes a point from the list.
-    function removePoint(placeId) {
-      let removeIndex = selectedMapPoints.map((item) => item.placeId).indexOf(placeId);
-      if (removeIndex !== -1) {
-        selectedMapPoints.splice(removeIndex, 1);
-      }
-    }
-
   });
 
   // Show map and search input after last event is loaded (tilesloaded)
@@ -203,27 +211,53 @@ $(document).ready(() => {
     naturalHeight: 627,
     speed: 0.5,
   });
+
   let points = [];
   let re = new RegExp('^\/api\/categories\/[0-9]+$');
+  let editRe = new RegExp('^\/api\/categories\/[0-9]+\/edit$')
   if (re.test(window.location.pathname)) {
-    var path = window.location.pathname.slice(16);
+    const path = window.location.pathname.slice(16);;
 
-  $.ajax({
-    method: "GET",
-    url: `/api/categories/${path}/points`,
-  }).done((result) => {
-    result.pointData.forEach((point) => {
-      points.push({
-        lat: point.lat,
-        lng: point.long,
-        placeId: point.place_id,
+    $.ajax({
+      method: "GET",
+      url: `/api/categories/${path}/points`,
+    }).done((result) => {
+      result.pointData.forEach((point) => {
+        points.push({
+          lat: point.lat,
+          lng: point.long,
+          placeId: point.place_id,
+        });
       });
-    });
-    initGoogleMaps(points);
+      initGoogleMaps(points);
   });
+  } else if (editRe.test(window.location.pathname)) {
+    var path = window.location.pathname.slice(16);
+    var path = path.slice(0, -5);
+    $.ajax({
+      method: "GET",
+      url: `/api/categories/${path}/points`,
+    }).done((result) => {
+      result.pointData.forEach((point) => {
+        points.push({
+          lat: point.lat,
+          lng: point.long,
+          placeId: point.place_id,
+          title: point.title,
+        });
+      });
+      initGoogleMaps(points);
+    });
   } else {
-    console.log('happening');
-    initGoogleMaps(points);
+    if (document.location.href.indexOf('users') === -1) {
+      initGoogleMaps(points);
+    }
   }
 
+  $('[data-categories-grid]').masonry({
+    itemSelector: '.category-grid--item',
+    columnWidth: 300,
+    gutter: 20,
+    fitWidth: true,
+  });
 });

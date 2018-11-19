@@ -1,1 +1,24 @@
 {{> map}}
+
+<h1 class="home-category--title">Current Categories</h1>
+
+<div class="categories-grid" data-categories-grid>
+  {{#each categories}}
+    <a class="category-grid--link" href="#">
+      <div class="category-grid--item">
+        {{#if this.image}}
+          <img src="{{this.image}}" alt="{{this.name}}" />
+        {{else}}
+          <div class="category-grid--no-image"></div>
+        {{/if}}
+
+        <div class="category-grid--info">
+          <span>{{this.name}}</span>
+          <span>{{this.description}}</span>
+        </div>
+
+        {{> like-icon}}
+      </div>
+    </a>
+  {{/each}}
+</div>

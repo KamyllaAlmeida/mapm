@@ -30,15 +30,5 @@
 <h5 class="category-list--title">List of points</h5>
 
 <ul class="list-group">
-  {{#each point_data}}
-    {{category_data}}
 
-    <li class="list-group-item d-flex justify-content-between align-items-center" name ="test">
-      {{this.title}}
-
-      <form method="POST" action ="/api/categories/{{../category_data.id}}/point/{{this.id}}?_method=DELETE">
-        <button class="btn btn-primary" type="submit">Delete</button>
-      </form>
-    </li>
-  {{/each}}
 </ul>
