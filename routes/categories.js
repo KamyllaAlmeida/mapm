@@ -134,7 +134,7 @@ module.exports = function (DataHelpers) {
         let templateVars = {
           category_data: categoryData[0],
           point_data: pointData,
-          user: req.session.user_id,
+          username: req.session.user_id,
         };
 
         res.render('edit-new', templateVars);

@@ -65,19 +65,20 @@ app.get('/', (req, res) => {
       {
         showHeroImage: true,
         categories: results,
-        user: req.session.user_id
+        username: req.session.user_id,
+        userIsAuthenticated: req.userAuthenticated,
       }
     );
   });
 
-  if (req.userAuthenticated) {
-    let userId = req.session.user_id;
-    let categoryId = req.params.id;
+  // if (req.userAuthenticated) {
+  //   let userId = req.session.user_id;
+  //   let categoryId = req.params.id;
 
-    DataHelpers.toggleLike(userId, categoryId, (results) => {
-      res.redirect('/');
-    });
-  }
+  //   DataHelpers.toggleLike(userId, categoryId, (results) => {
+  //     res.redirect('/');
+  //   });
+  // }
 });
 
 // Display login page

@@ -17,7 +17,7 @@
           <span>{{this.description}}</span>
         </div>
 
-        {{#if user}}
+        {{#if ../userIsAuthenticated}}
           {{> like-icon}}
         {{/if}}
       </div>

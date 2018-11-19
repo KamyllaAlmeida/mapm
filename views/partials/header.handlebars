@@ -7,9 +7,9 @@
     </div>
 
     <div class="user-actions">
-      {{#if user}}
+      {{#if username}}
         <form method="POST" action="/logout">
-          <span class="user-actions--username">Hi, {{user}}</span>
+          <span class="user-actions--username">Hi, {{username}}</span>
           <button class="btn btn-success">Logout</button>
         </form>
       {{else}}
