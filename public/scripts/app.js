@@ -12,7 +12,12 @@ function initGoogleMaps(points) {
   const markers = [];
   var markerBounds = new google.maps.LatLngBounds();
   let boundPoint;
-  points.forEach(element => {
+
+  points.forEach((point) => {
+    addMapPoint(point);
+  });
+
+    function addMapPoint(element) {
     boundPoint = new google.maps.LatLng(element.lat, element.lng);
     markerBounds.extend(boundPoint);
     const request = {
@@ -34,7 +39,8 @@ function initGoogleMaps(points) {
         });
       }
     }
-  });
+  };
+
   console.log(markerBounds);
 
   map.fitBounds(markerBounds);
@@ -191,6 +197,7 @@ function initGoogleMaps(points) {
     boundPoint = new google.maps.LatLng(pointData.lat, pointData.lng);
     markerBounds.extend(boundPoint);
     map.fitBounds(markerBounds);
+    addMapPoint(pointData);
     addPoint(pointData);
   });
 
