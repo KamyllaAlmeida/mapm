@@ -9,8 +9,12 @@ body {
 
 .site-main {
   flex: 1 0 auto;
-  margin-top: $space-xx-large;
+  margin-top: $space-large;
   margin-bottom: $space-xx-large;
+
+  @include media($min: $bp-small) {
+    margin-top: $space-xx-large;
+  }
 }
 
 h1 {

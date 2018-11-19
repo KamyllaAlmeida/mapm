@@ -3,12 +3,27 @@
   top: 0;
   z-index: 1;
   width: 100%;
-  height: 60px;
+  height: 100px;
   padding: 0;
   color: $color-white;
   background: $color-darker-gray;
   border-bottom: 1px solid $color-darkest-gray;
   box-shadow: 0 0 4px rgba($color-black, 0.14), 0 4px 8px rgba($color-black, 0.28);
+
+  @include media($max: $bp-small) {
+    text-align: center;
+  }
+
+  @include media($min: $bp-small) {
+    height: 60px;
+  }
+
+  .logo {
+    @include media($max: $bp-small) {
+      width: 100%;
+      margin-bottom: $space-x-small;
+    }
+  }
 
   .logo img {
     max-width: 150px;
@@ -19,7 +34,12 @@
   }
 
   .user-actions {
-    margin-left: auto;
+  width: 100%;
+
+    @include media($min: $bp-small) {
+      width: auto;
+      margin-left: auto;
+    }
   }
 
   .user-actions--username {

@@ -116,7 +116,7 @@ function initGoogleMaps(points) {
         },
         success: function(response) {
           window.location.replace(response.url);
-    }
+        }
       });
     } else {
       $.ajax({

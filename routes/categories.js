@@ -58,7 +58,6 @@ module.exports = function (DataHelpers) {
     let pointsLeft = points.length;
 
     DataHelpers.addCategory(category, (categoryId) => {
-
       points.forEach((point) => {
         let newPoint = {
           lat: point.lat,
@@ -66,15 +65,16 @@ module.exports = function (DataHelpers) {
           image: point.image,
           place_id: point.placeId,
           title: point.title,
-        }
+        };
+
         DataHelpers.addPoint(newPoint, categoryId, (result) => {
           pointsLeft--;
           if (!pointsLeft) {
             res.json({url: `/api/categories/${categoryId.toString()}`});
           }
-        })
+        });
       });
-    })
+    });
   });
 
   // After select a Category show this page
@@ -139,7 +139,7 @@ module.exports = function (DataHelpers) {
           image: point.image,
           place_id: point.placeId,
           title: point.title,
-        }
+        };
 
         DataHelpers.addPoint(newPoint, categoryId, (result) => {
           pointsLeft--;
@@ -151,11 +151,13 @@ module.exports = function (DataHelpers) {
     });
   });
 
-    //Edit category
+  // Edit category
   router.get('/:id/edit', (req, res) => {
     let categoryId = req.params.id;
+
     DataHelpers.getCategoryByID(categoryId, (results) => {
       let categoryData = results;
+
       DataHelpers.getPoints(categoryId, (results) => {
         let pointData = results;
         let templateVars = {
@@ -164,8 +166,9 @@ module.exports = function (DataHelpers) {
           username: req.session.user_name,
           user_id: req.session.user_id,
           userIsAuthenticated: req.userAuthenticated,
-        }
-         //res.json({category_data: categoryData, point_data: pointData});
+        };
+
+        //res.json({category_data: categoryData, point_data: pointData});
         res.render('edit', templateVars);
       });
     });

@@ -11,3 +11,9 @@
     clear: both;
   }
 }
+
+%flexcontainer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}

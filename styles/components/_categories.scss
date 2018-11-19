@@ -1,12 +1,25 @@
+.category-title--container {
+  position: relative;
+  margin: $space-small 0 $space-x-large;
+
+  .category-list--like {
+    right: 0;
+    bottom: 0;
+  }
+}
+
 .category-title {
+  margin: 0;
   text-transform: capitalize;
+
+  @include media($max: $bp-small) {
+    text-align: left;
+  }
 }
 
 .category-list--title-container {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin: $space-medium 0 $space-x-small;
+  @extend %flexcontainer;
+  margin: $space-xxx-large 0 $space-x-small;
 }
 
 .category-list--title {
