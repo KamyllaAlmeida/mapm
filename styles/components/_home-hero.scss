@@ -7,7 +7,7 @@
 .home-hero--message {
   height: 420px;
   padding: $space-x-large;
-  background: rgba($color-white, 0.8);
+  background: rgba($color-white, 0.9);
 
   @include media($min: $bp-small) {
     @include centerer;
