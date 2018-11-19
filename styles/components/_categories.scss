@@ -2,8 +2,15 @@
   text-transform: capitalize;
 }
 
-.category-list--title {
+.category-list--title-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
   margin: $space-medium 0 $space-x-small;
+}
+
+.category-list--title {
+  margin: 0;
 }
 
 .list-group li {
