@@ -40,7 +40,7 @@ module.exports = function (DataHelpers) {
     let templateVars = {
       user: req.session.user_id
     }
-    res.render('edit-new', templateVars);
+    res.render('new', templateVars);
   });
 
   // Saving New Category
@@ -118,27 +118,51 @@ module.exports = function (DataHelpers) {
   });
 
   // Update category
-  router.put('/:id/edit', (req, res) => {
-    res.json({'id': req.params.id});
-  });
-
-  // Edit category
-  router.get('/:id/edit', (req, res) => {
+  router.put('/:id', (req, res) => {
     let categoryId = req.params.id;
 
-    DataHelpers.getCategoryByID(categoryId, (results) => {
-      let categoryData = results;
+    let category = {};
+    req.body.category.map((field) => {
+      category[field.name] = field.value;
+    });
 
-      DataHelpers.getPoints(categoryId, (results) => {
-        let pointData = results;
-        let templateVars = {
-          category_data: categoryData[0],
-          point_data: pointData,
-          username: req.session.user_id,
-        };
+    DataHelpers.updateCategory(categoryId, category, (results) => {
+      let pointsLeft = req.body.mapPoints.length;
+      req.body.mapPoints.forEach((point) => {
+        let newPoint = {
+          lat: point.lat,
+          long: point.lng,
+          image: point.image,
+          place_id: point.placeId,
+          title: point.title,
+        }
 
-        res.render('edit-new', templateVars);
+        DataHelpers.addPoint(newPoint, categoryId, (result) => {
+          pointsLeft--;
+          if (!pointsLeft) {
+            res.json({url: `/api/categories/${categoryId.toString()}`});
+          }
+        })
       });
+    });
+  });
+
+    //Edit category
+    router.get('/:id/edit', (req, res) => {
+      let categoryId = req.params.id;
+      DataHelpers.getCategoryByID(categoryId, (results) => {
+       let categoryData = results;
+        DataHelpers.getPoints(categoryId, (results) => {
+         let pointData = results;
+          let templateVars = {
+           category_data: categoryData[0],
+           point_data: pointData,
+           user: req.session.user_id
+         }
+         //res.json({category_data: categoryData, point_data: pointData});
+         res.render('edit', templateVars);
+       });
+     });
     });
   });
 

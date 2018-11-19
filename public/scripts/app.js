@@ -1,12 +1,17 @@
 // Initialize Google Maps API map
 function initGoogleMaps(points) {
   const map = new google.maps.Map(document.getElementById('map'), {
+    center: {lat: 49.283832198, lng: -123.119332856},
     zoom: 12
   });
 
-  // console.log(window.location.path);
   let editRe = new RegExp('^\/api\/categories\/[0-9]+\/edit$');
   let isEditPage = editRe.test(window.location.pathname);
+
+  if (isEditPage) {
+    var editPageId = window.location.pathname.slice(16).slice(0,-5)
+  }
+
 
   const service = new google.maps.places.PlacesService(map);
   const markers = [];
@@ -41,11 +46,12 @@ function initGoogleMaps(points) {
     }
   };
 
-  console.log(markerBounds);
 
-  map.fitBounds(markerBounds);
-  map.panToBounds(markerBounds);
+  if(boundPoint){
+    map.fitBounds(markerBounds);
+    map.panToBounds(markerBounds);
   // map.setCenter(bounds.getCenter());
+  }
 
   function newMarker(place) {
     const aMarker = new google.maps.Marker({
@@ -99,22 +105,35 @@ function initGoogleMaps(points) {
   $('#category-form-button').on('click', (event) => {
     event.preventDefault();
     let prunedPoints = selectedMapPoints.map(({lat, lng, placeId, title, description}) => ({lat, lng, placeId, title, description}));
-
-    $.ajax({
-      url: '/api/categories',
-      type: 'POST',
-      data: {
-        'category': $('#save-category-form').serializeArray(),
-        'mapPoints': prunedPoints},
-      success: function(response) {
-        window.location.replace(response.url);
-      },
-    });
+    if (isEditPage) {
+      $.ajax({
+        url: `/api/categories/${editPageId}`,
+        type: 'PUT',
+        data: {
+          'category': $('#save-category-form').serializeArray(),
+          'mapPoints': prunedPoints,
+          'categoryId': editPageId
+        },
+        success: function(response) {
+          window.location.replace(response.url);
+    }
+      });
+    } else {
+      $.ajax({
+        url: '/api/categories',
+        type: 'POST',
+        data: {
+          'category': $('#save-category-form').serializeArray(),
+          'mapPoints': prunedPoints},
+        success: function(response) {
+          window.location.replace(response.url);
+        },
+      });
+    }
   });
 
   function addPoint(pointData) {
     let currentIds = selectedMapPoints.map((item) => item.placeId);
-    console.log(selectedMapPoints);
     if (!currentIds.includes(pointData.placeId)) {
       selectedMapPoints.push(pointData);
       $('.list-group')
@@ -140,12 +159,10 @@ function initGoogleMaps(points) {
 
   if(isEditPage) {
     points.forEach((point) => {
-      console.log('happening');
       addPoint(point);
     });
   }
 
-  console.log(selectedMapPoints);
   autocomplete.addListener('place_changed', () => {
     infowindow.close();
 
