@@ -49,14 +49,18 @@
 }
 
 .categories-grid {
-  margin: 0 auto;
+  @include media($max: $bp-large) {
+    margin: 0 auto;
+  }
 }
 
 .category-grid--item {
-  margin-bottom: $space-medium;
+  @include media($min: $bp-large) {
+    width: 33.33%;
+  }
 
   img {
-    max-width: 300px;
+    width: 100%;
     transition: 0.2s ease;
   }
 
@@ -92,6 +96,7 @@
 
 .category-grid--info {
   @include centerer;
+  width: 100%;
   padding: $space-x-small;
   text-align: center;
   background: rgba($color-white, 0.8);

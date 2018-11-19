@@ -139,7 +139,7 @@ function initGoogleMaps(points) {
       $('.list-group')
         .append($('<li>', {class: 'list-group-item d-flex justify-content-between align-items-center'})
           .append($('<span>', {class: 'list-group-item-label'}).text(pointData.title))
-          .append($('<button>', {class: 'list-item-delete-button', 'data-placeId': `${pointData.placeId}`}).text('Delete')));
+          .append($('<button>', {class: 'list-item-delete-button btn btn-primary', 'data-placeId': `${pointData.placeId}`}).text('Delete')));
 
       $(`[data-placeId=${pointData.placeId}]`).on('click', function(event) {
         removePoint($(event.target).attr('data-placeId'));
@@ -281,11 +281,14 @@ $(document).ready(() => {
     }
   }
 
-  $('[data-categories-grid]').masonry({
+  const $grid = $('[data-categories-grid]').masonry({
     itemSelector: '.category-grid--item',
-    columnWidth: 300,
-    gutter: 20,
     fitWidth: true,
+    percentPosition: true,
+  });
+
+  $grid.masonry('on', 'layoutComplete', () => {
+    $grid.masonry();
   });
 
   // Like category
