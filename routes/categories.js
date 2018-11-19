@@ -38,7 +38,8 @@ module.exports = function (DataHelpers) {
   // New Category Page
   router.get('/new', (req, res) => {
     let templateVars = {
-      user: req.session.user_id
+      username: req.session.user_name,
+      userIsAuthenticated: req.userAuthenticated,
     }
     res.render('new', templateVars);
   });
@@ -87,7 +88,8 @@ module.exports = function (DataHelpers) {
           let templateVars = {
             category_data: categoryData[0],
             point_data: pointData,
-            user: req.session.user_id
+            username: req.session.user_name,
+            userIsAuthenticated: req.userAuthenticated,
           };
 
           res.render('categories', templateVars);
@@ -110,10 +112,10 @@ module.exports = function (DataHelpers) {
       let categoryId = req.params.id;
 
       DataHelpers.toggleLike(userId, categoryId, (results) => {
-        res.json('Success!');
+        res.json({'message': 'Success!'});
       });
     } else {
-      res.redirect('/');
+      res.json({'message': 'Not logged in.'});
     }
   });
 
@@ -157,7 +159,8 @@ module.exports = function (DataHelpers) {
         let templateVars = {
           category_data: categoryData[0],
           point_data: pointData,
-          user: req.session.user_id
+          username: req.session.user_name,
+          userIsAuthenticated: req.userAuthenticated,
         }
          //res.json({category_data: categoryData, point_data: pointData});
         res.render('edit', templateVars);

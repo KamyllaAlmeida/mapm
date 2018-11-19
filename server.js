@@ -65,7 +65,7 @@ app.get('/', (req, res) => {
       {
         showHeroImage: true,
         categories: results,
-        username: req.session.user_id,
+        username: req.session.user_name,
         userIsAuthenticated: req.userAuthenticated,
       }
     );
@@ -81,14 +81,17 @@ app.get('/login', (req, res) => {
 
 // For logging in authenticated user
 app.post('/login', (req, res) => {
-  req.session.user_id = req.body.username;
-  res.redirect('/');
+  DataHelpers.getUserId(req.body.username, (result) => {
+    req.session.user_id = result[0].id;
+    req.session.user_name = req.body.username;
+    res.redirect('/');
+  });
 });
 
-app.post('/logout', (req, res) => {
-  req.session = null;
-  res.redirect("/");
-});
+// app.post('/logout', (req, res) => {
+//   req.session = null;
+//   res.redirect("/");
+// });
 
 app.listen(PORT, () => {
   console.log("Example app listening on port " + PORT);
@@ -97,5 +100,6 @@ app.listen(PORT, () => {
 // Returns a boolean as to whether the user is logged in or not.
 function isAuthenticated(req, res, next) {
   req.userAuthenticated = req.session.user_id ? true : false;
+  console.log(req.session.user_id);
   next();
 }
