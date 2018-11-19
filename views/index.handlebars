@@ -4,8 +4,8 @@
 
 <div class="categories-grid" data-categories-grid>
   {{#each categories}}
-    <a class="category-grid--link" href="/api/categories/{{this.id}}">
-      <div class="category-grid--item">
+    <div class="category-grid--item">
+      <a class="category-grid--link" href="/api/categories/{{this.id}}">
         {{#if this.image}}
           <img src="{{this.image}}" alt="{{this.name}}" />
         {{else}}
@@ -16,11 +16,11 @@
           <span>{{this.name}}</span>
           <span>{{this.description}}</span>
         </div>
+      </a>
 
-        {{#if ../userIsAuthenticated}}
-          {{> like-icon}}
-        {{/if}}
-      </div>
-    </a>
+      {{#if ../userIsAuthenticated}}
+        {{> like-icon}}
+      {{/if}}
+    </div>
   {{/each}}
 </div>

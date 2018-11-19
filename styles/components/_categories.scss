@@ -47,21 +47,26 @@
     transition: 0.2s ease;
   }
 
+  &:hover {
+    img {
+      opacity: 0.5;
+    }
+  }
+}
+
+.category-list--like {
+  position: absolute;
+  right: 5px;
+  bottom: 8px;
+  display: block;
+  cursor: pointer;
+
   svg {
-    position: absolute;
-    right: 5px;
-    bottom: 8px;
     width: 30px;
     transition: 0.3s ease;
 
     &:hover {
       opacity: 0.7;
-    }
-  }
-
-  &:hover {
-    img {
-      opacity: 0.5;
     }
   }
 }
