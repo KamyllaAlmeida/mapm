@@ -148,21 +148,20 @@ module.exports = function (DataHelpers) {
   });
 
     //Edit category
-    router.get('/:id/edit', (req, res) => {
-      let categoryId = req.params.id;
-      DataHelpers.getCategoryByID(categoryId, (results) => {
-       let categoryData = results;
-        DataHelpers.getPoints(categoryId, (results) => {
-         let pointData = results;
-          let templateVars = {
-           category_data: categoryData[0],
-           point_data: pointData,
-           user: req.session.user_id
-         }
+  router.get('/:id/edit', (req, res) => {
+    let categoryId = req.params.id;
+    DataHelpers.getCategoryByID(categoryId, (results) => {
+      let categoryData = results;
+      DataHelpers.getPoints(categoryId, (results) => {
+        let pointData = results;
+        let templateVars = {
+          category_data: categoryData[0],
+          point_data: pointData,
+          user: req.session.user_id
+        }
          //res.json({category_data: categoryData, point_data: pointData});
-         res.render('edit', templateVars);
-       });
-     });
+        res.render('edit', templateVars);
+      });
     });
   });
 
