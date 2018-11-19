@@ -61,6 +61,12 @@
   display: block;
   cursor: pointer;
 
+  &.liked {
+    svg {
+      fill: $color-gold;
+    }
+  }
+
   svg {
     width: 30px;
     transition: 0.3s ease;

@@ -1,4 +1,3 @@
-
 // Initialize Google Maps API map
 function initGoogleMaps(points) {
   const map = new google.maps.Map(document.getElementById('map'), {
@@ -214,12 +213,13 @@ $(document).ready(() => {
 
   let points = [];
   let re = new RegExp('^\/api\/categories\/[0-9]+$');
-  let editRe = new RegExp('^\/api\/categories\/[0-9]+\/edit$')
+  let editRe = new RegExp('^\/api\/categories\/[0-9]+\/edit$');
+
   if (re.test(window.location.pathname)) {
     const path = window.location.pathname.slice(16);;
 
     $.ajax({
-      method: "GET",
+      method: 'GET',
       url: `/api/categories/${path}/points`,
     }).done((result) => {
       result.pointData.forEach((point) => {
@@ -229,11 +229,13 @@ $(document).ready(() => {
           placeId: point.place_id,
         });
       });
-      initGoogleMaps(points);
+
+    initGoogleMaps(points);
   });
   } else if (editRe.test(window.location.pathname)) {
     var path = window.location.pathname.slice(16);
     var path = path.slice(0, -5);
+
     $.ajax({
       method: "GET",
       url: `/api/categories/${path}/points`,
@@ -259,5 +261,20 @@ $(document).ready(() => {
     columnWidth: 300,
     gutter: 20,
     fitWidth: true,
+  });
+
+  // Like category
+  $('[data-category-like]').on('click', (event) => {
+    event.preventDefault();
+
+    let categoryId = $(event.currentTarget).attr('data-category-like');
+
+    $.ajax({
+      url: `/api/categories/${categoryId}/like`,
+      type: 'PUT',
+      success: ((response) => {
+        $(event.currentTarget).addClass('liked');
+      })
+    });
   });
 });
