@@ -13,7 +13,6 @@ function initGoogleMaps(points) {
   var markerBounds = new google.maps.LatLngBounds();
   let boundPoint;
   points.forEach(element => {
-    console.log(element);
     boundPoint = new google.maps.LatLng(element.lat, element.lng);
     markerBounds.extend(boundPoint);
     const request = {
@@ -189,7 +188,9 @@ function initGoogleMaps(points) {
       title: place.name,
       description: place.formatted_address
     };
-
+    boundPoint = new google.maps.LatLng(pointData.lat, pointData.lng);
+    markerBounds.extend(boundPoint);
+    map.fitBounds(markerBounds);
     addPoint(pointData);
   });
 
