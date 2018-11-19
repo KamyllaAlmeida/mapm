@@ -70,15 +70,6 @@ app.get('/', (req, res) => {
       }
     );
   });
-
-  // if (req.userAuthenticated) {
-  //   let userId = req.session.user_id;
-  //   let categoryId = req.params.id;
-
-  //   DataHelpers.toggleLike(userId, categoryId, (results) => {
-  //     res.redirect('/');
-  //   });
-  // }
 });
 
 // Display login page
