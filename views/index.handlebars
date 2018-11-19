@@ -4,7 +4,7 @@
 
 <div class="categories-grid" data-categories-grid>
   {{#each categories}}
-    <a class="category-grid--link" href="#">
+    <a class="category-grid--link" href="/api/categories/{{this.id}}">
       <div class="category-grid--item">
         {{#if this.image}}
           <img src="{{this.image}}" alt="{{this.name}}" />

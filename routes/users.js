@@ -26,7 +26,7 @@ module.exports = function(DataHelpers) {
         DataHelpers.getLikes(userId, (likesResults) => {
           let likesInfo = likesResults;
 
-          res.render('users', {user: userInfo, likes: likesInfo, contributes: contributesInfo});
+          res.render('users', {user: userInfo, likes: likesInfo, contributes: contributesInfo, user: req.session.user_id});
         });
       });
     });
