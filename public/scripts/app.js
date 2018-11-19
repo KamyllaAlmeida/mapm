@@ -249,7 +249,7 @@ $(document).ready(() => {
       initGoogleMaps(points);
     });
   } else {
-    if (document.location.href.indexOf('users') === -1) {
+    if (document.location.href.indexOf('users') === -1 && document.location.href.indexOf('login') === -1) {
       initGoogleMaps(points);
     }
   }

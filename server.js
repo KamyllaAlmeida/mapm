@@ -69,6 +69,15 @@ app.get('/', (req, res) => {
       }
     );
   });
+
+  if (req.userAuthenticated) {
+    let userId = req.session.user_id;
+    let categoryId = req.params.id;
+
+    DataHelpers.toggleLike(userId, categoryId, (results) => {
+      res.redirect('/');
+    });
+  }
 });
 
 // Display login page
@@ -86,7 +95,7 @@ app.post('/login', (req, res) => {
 
 app.post('/logout', (req, res) => {
   req.session = null;
-  res.redirect("/"); 
+  res.redirect("/");
 });
 
 app.listen(PORT, () => {
@@ -95,6 +104,6 @@ app.listen(PORT, () => {
 
 // Returns a boolean as to whether the user is logged in or not.
 function isAuthenticated(req, res, next) {
-  req.userAuthenticated = req.session.user_id ? 'true' : 'false';
+  req.userAuthenticated = req.session.user_id ? true : false;
   next();
 }
