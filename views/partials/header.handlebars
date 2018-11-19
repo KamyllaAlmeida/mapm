@@ -8,10 +8,11 @@
 
     <div class="user-actions">
       {{#if username}}
-        <form method="POST" action="/logout">
-          <span class="user-actions--username">Hi, {{username}}</span>
+        <form method="POST" action="/logout" style="display: inline;">
+          <span class="user-actions--username">Hi, <a href="/api/users/{{user_id}}">{{username}}</a></span>
           <button class="btn btn-success">Logout</button>
         </form>
+          <a href="/api/categories/new"><button class="btn btn-success" style="display: inline;">New</button></a>
       {{else}}
         <a class="btn btn-success" href="/login">Login</a>
       {{/if}}

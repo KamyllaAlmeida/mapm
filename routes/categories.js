@@ -39,6 +39,7 @@ module.exports = function (DataHelpers) {
   router.get('/new', (req, res) => {
     let templateVars = {
       username: req.session.user_name,
+      user_id: req.session.user_id,
       userIsAuthenticated: req.userAuthenticated,
     }
     res.render('new', templateVars);
@@ -89,6 +90,7 @@ module.exports = function (DataHelpers) {
             category_data: categoryData[0],
             point_data: pointData,
             username: req.session.user_name,
+            user_id: req.session.user_id,
             userIsAuthenticated: req.userAuthenticated,
           };
 
@@ -160,6 +162,7 @@ module.exports = function (DataHelpers) {
           category_data: categoryData[0],
           point_data: pointData,
           username: req.session.user_name,
+          user_id: req.session.user_id,
           userIsAuthenticated: req.userAuthenticated,
         }
          //res.json({category_data: categoryData, point_data: pointData});

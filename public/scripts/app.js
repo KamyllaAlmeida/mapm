@@ -298,7 +298,7 @@ $(document).ready(() => {
       url: `/api/categories/${categoryId}/like`,
       type: 'PUT',
       success: ((response) => {
-        $(event.currentTarget).addClass('liked');
+        $(event.currentTarget).toggleClass('liked');
       })
     });
   });

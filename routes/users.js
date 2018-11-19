@@ -32,7 +32,8 @@ module.exports = function(DataHelpers) {
               likes: likesInfo,
               contributes: contributesInfo,
               userIsAuthenticated: req.userAuthenticated,
-              username: req.session.user_id,
+              username: req.session.user_name,
+              user_id: req.session.user_id,
             }
           );
         });

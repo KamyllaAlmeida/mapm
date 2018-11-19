@@ -66,6 +66,7 @@ app.get('/', (req, res) => {
         showHeroImage: true,
         categories: results,
         username: req.session.user_name,
+        user_id: req.session.user_id,
         userIsAuthenticated: req.userAuthenticated,
       }
     );
