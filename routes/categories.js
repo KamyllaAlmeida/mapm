@@ -109,8 +109,6 @@ module.exports = function (DataHelpers) {
       let userId = req.session.user_id;
       let categoryId = req.params.id;
 
-      console.log('USER IDDDDD >>>>>>>>>>>>>>>' + userId);
-
       DataHelpers.toggleLike(userId, categoryId, (results) => {
         res.json('Success!');
       });
