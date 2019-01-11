@@ -2,7 +2,7 @@
 
 ## Contributors
 
-[Jessica Winters](https://github.com/Jesswinters)
+[Jessica Winters](https://github.com/Jesswinters) |
 [Kamylla Almeida](https://github.com/KamyllaAlmeida)
 
 ## Prerequisites
