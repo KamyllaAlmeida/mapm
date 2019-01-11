@@ -1,8 +1,8 @@
 # Mapm
 
 ## Contributors
-[Adam Romeo](https://github.com/arromeo) |
-[Jessica Winters](https://github.com/Jesswinters) |
+[Adam Romeo](https://github.com/arromeo)  | 
+[Jessica Winters](https://github.com/Jesswinters)  | 
 [Kamylla Almeida](https://github.com/KamyllaAlmeida)
 
 ## Prerequisites
