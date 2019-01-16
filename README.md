@@ -23,7 +23,7 @@ This app requires Google Maps and Places API keys. The keys currently in the pro
 
 ## Demo
 
-![demo video of mapm](/docs/mapm-demo.gif)
+![demo video of mapm](mapm/docs/mapm_demo.gif)
 
 - Authorized users are able to make new maps and edit any current maps that exist on the server.
 - App name, title and image can be entered for displaying the map in lists.
