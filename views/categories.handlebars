@@ -1,6 +1,8 @@
 <div class="category-title--container">
   <h1 class="category-title" data-category-name>{{category_data.name}}</h1>
 
+<span id="category" data-display="{{category_data.id}}" data-edit="false" data-new="false" hidden></span>
+
   {{#if userIsAuthenticated}}
     <a class="category-list--like" href="/{{category_data.id}}/like" data-category-like="{{category_data.id}}">
       <svg version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000">
