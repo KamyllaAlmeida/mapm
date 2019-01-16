@@ -117,3 +117,33 @@
 .category-grid--link {
   color: $color-black;
 }
+
+.categories-table-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.categories-table {
+  width: 80%;
+  border-spacing: 2px;
+  border-collapse: separate;
+
+  th {
+    background-color: green;
+  }
+
+  .category-table-name {
+    a {
+      color: green;
+    }
+
+    &:hover {
+      color: darkgreen;
+    }
+  }
+
+  img {
+    width: 150px;
+    height: auto;
+  }
+}

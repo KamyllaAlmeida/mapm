@@ -1,24 +1,17 @@
-<h1 class="home-category--title">Current Categories</h1>
-
-<div class="categories-grid" data-categories-grid>
-  {{#each categories}}
-    <div class="category-grid--item">
-      <a class="category-grid--link" href="/api/categories/{{this.id}}">
-        {{#if this.image}}
-          <img src="{{this.image}}" alt="{{this.name}}" />
-        {{else}}
-          <div class="category-grid--no-image"></div>
-        {{/if}}
-
-        <div class="category-grid--info">
-          <span>{{this.name}}</span>
-          <span>{{this.description}}</span>
-        </div>
-      </a>
-
-      {{#if ../userIsAuthenticated}}
-        {{> like-icon}}
-      {{/if}}
-    </div>
-  {{/each}}
+<div class="categories-table-container">
+  <table class="categories-table">
+    <thead>
+      <tr>
+        <th colspan="2">Current maps</th>
+      </tr>
+    </thead>
+    <tbody>
+      {{#each categories}}
+      <tr class="category-table-row">
+        <td><a href="/api/categories/{{this.id}}"><img src="{{this.image}}" alt="{{this.name}}" /></a></td>
+        <td class="category-table-name"><a href="/api/categories/{{this.id}}">{{this.name}}</a></td>
+      </tr>
+      {{/each}}
+    </tbody>
+  </table>
 </div>
