@@ -38,4 +38,5 @@ Mapm was a five day project, but we would like to expand on it when time permits
 
 1. Full login and authorization - Currently we have a dummy login system with only a couple pre-programmed users.
 2. Moderation system - Like Wikipedia, our app is open to editing by any registered user. To prevent abuse and misuse of the app, would require a moderation system.
-3. Featured maps - If something is in the headlines, a relevant map on the front page would be useful.
+3. Map history - Goes hand-in-hand with moderation that changes to the map might need to be rolled back.
+4. Featured maps - If something is in the headlines, a relevant map on the front page would be useful.
